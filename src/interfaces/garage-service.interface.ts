@@ -1,6 +1,6 @@
-interface GarageService {
+interface GarageServiceInterface {
   garageId: string;
   serviceId: string;
 }
 
-export default GarageService;
+export default GarageServiceInterface;

@@ -16,4 +16,4 @@ const GarageServiceSchema = new Schema({
   },
 });
 
-export default mongoose.model<GarageServiceDocument>('GarageService', GarageServiceSchema);
+export default mongoose.model<GarageServiceDocument>('Garage-Service', GarageServiceSchema);

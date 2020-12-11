@@ -1,5 +1,7 @@
+import { GarageUpdateServicesDto } from './../dtos/garages/garage-update-services.dto';
 import { inject, injectable } from 'inversify';
 import { MongooseFilterQuery } from 'mongoose';
+import _ from 'lodash';
 
 import TYPES from '../types';
 import { isEmptyObject } from '../utils/util';
@@ -11,10 +13,16 @@ import { GarageDocument } from './../models/garage.model';
 import GarageRepository from '../repositories/garage.repository';
 import { UpdateGarageDto } from './../dtos/garages/update-garage.dto';
 import { CreateGarageDto } from './../dtos/garages/create-garage.dto';
+import ServiceRepository from '../repositories/service.repository';
+import GarageServiceRepository from '../repositories/garage-service.repository';
 
 @injectable()
 class GarageService {
-  constructor(@inject(TYPES.GarageRepository) private garageRepository: GarageRepository) {}
+  constructor(
+    @inject(TYPES.GarageRepository) private garageRepository: GarageRepository,
+    @inject(TYPES.ServiceRepository) private serviceRepository: ServiceRepository,
+    @inject(TYPES.GarageServiceRepository) private garageServiceRepository: GarageServiceRepository,
+  ) {}
 
   /**
    * Returns garage object if created successfull
@@ -74,6 +82,47 @@ class GarageService {
     const updatedGarage = await this.garageRepository.updateOne(garage, garageData, userId);
 
     return updatedGarage;
+  }
+
+  /**
+   * Returns is garage object updated successfull or faileds
+   * @param {MongooseFilterQuery<Garage>} conditions
+   * @param {UpdateGarageDto} garageData
+   * @param {string} userId
+   * @returns {Boolean}
+   */
+  public async addServices(conditions: MongooseFilterQuery<GarageDocument> = {}, serviceIds: GarageUpdateServicesDto): Promise<boolean> {
+    const garage = await this.garageRepository.findOne(conditions, {
+      useLean: true,
+      throwNotFoundException: true,
+    });
+    // TO DO
+    // Error garage not found
+
+    const services = await this.serviceRepository.find(
+      {
+        _id: {
+          $in: serviceIds.services,
+        },
+      },
+      {
+        throwNotFoundException: true,
+      },
+    );
+    // TO DO
+    // Error services not found
+
+    const garageServicesData = [];
+    _.forEach(services, service => {
+      garageServicesData.push({
+        garageId: garage.id,
+        serviceId: service.id,
+      });
+    });
+
+    const createdGarageServices = await this.garageServiceRepository.createMultiple(garageServicesData);
+
+    return createdGarageServices;
   }
 
   /**

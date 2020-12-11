@@ -13,6 +13,7 @@ import { RequestWithUser } from '../interfaces/auth.interface';
 import { QueryGaragesDto } from './../dtos/garages/query-garage.dto';
 import { UpdateGarageDto } from './../dtos/garages/update-garage.dto';
 import { CreateGarageDto } from './../dtos/garages/create-garage.dto';
+import { GarageUpdateServicesDto } from './../dtos/garages/garage-update-services.dto';
 
 @injectable()
 class GarageController {
@@ -98,6 +99,33 @@ class GarageController {
       );
 
       res.status(200).json({ data: updatedService, message: 'Garage is updated successfull' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  /**
+   * Returns response update garage object by garage id
+   * @param {RequestWithUser} req
+   * @param {Response} res
+   * @param {NextFunction} res
+   * @returns {void}
+   */
+  public addServices = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      // TO DO: Update userId after auth services completed
+      //const userId: string = req.user.id;
+      const garageId = _.get(req.params, 'garageId', '');
+      const services: GarageUpdateServicesDto = req.body;
+
+      const updatedService = await this.garageService.addServices(
+        {
+          _id: garageId,
+        },
+        services,
+      );
+
+      res.status(200).json({ data: updatedService, message: 'Services are added successfull' });
     } catch (error) {
       next(error);
     }

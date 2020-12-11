@@ -1,3 +1,4 @@
+import { GarageUpdateServicesDto } from './../dtos/garages/garage-update-services.dto';
 import { Router } from 'express';
 import { inject, injectable } from 'inversify';
 
@@ -26,6 +27,7 @@ class GarageRoute implements Route {
     this.router.post(`${this.path}`, validationMiddleware(CreateGarageDto, 'body'), this.garageController.create);
     this.router.get(`${this.path}`, validationMiddleware(QueryGaragesDto, 'body'), this.garageController.findAll);
     this.router.put(`${this.path}/:garageId`, validationMiddleware(UpdateGarageDto, 'body'), this.garageController.updateById);
+    this.router.put(`${this.path}/services/:garageId`, validationMiddleware(GarageUpdateServicesDto, 'body'), this.garageController.addServices);
     this.router.delete(`${this.path}/:garageId`, this.garageController.deleteById);
   }
 }
