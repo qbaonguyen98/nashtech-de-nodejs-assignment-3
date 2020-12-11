@@ -22,7 +22,7 @@ class AuthService {
     const socialData = jwt.decode(requestData.idToken) as DataStoredInSocialToken;
 
     if (!socialData || !socialData.email || !socialData.family_name || !socialData.given_name) {
-      throw new HttpException(400, 'invalid social token');
+      throw new HttpException(400, 'Invalid social token');
     }
 
     let user = await this.userRepository.findOne({

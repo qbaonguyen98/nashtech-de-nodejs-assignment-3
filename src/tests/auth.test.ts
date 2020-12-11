@@ -29,7 +29,7 @@ describe('Testing Auth', () => {
         .send({ idToken })
         .expect(200)
         .then(response => {
-          expect(response.body.message).toBe('social login');
+          expect(response.body.message).toBe('Social login');
         });
     });
 
@@ -45,7 +45,7 @@ describe('Testing Auth', () => {
         .send({ idToken })
         .expect(400)
         .then(response => {
-          expect(response.body.message).toBe('invalid social token');
+          expect(response.body.message).toBe('Invalid social token');
         });
     });
 

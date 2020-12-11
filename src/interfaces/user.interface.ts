@@ -13,7 +13,6 @@ interface User {
 
 export interface UpdateUser {
   roleId?: string;
-  accountType?: string;
   profileId?: string;
   lastLogin?: number;
   updatedBy?: string;
