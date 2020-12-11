@@ -28,18 +28,17 @@ const ServiceSchema = new Schema({
     required: true,
   },
   createdBy: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     default: null,
-    required: true,
-    ref: 'User',
+    required: false,
   },
   createdDate: {
     type: Number,
     required: true,
-    default: Date.now(),
+    default: new Date(),
   },
   updatedBy: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     default: null,
     ref: 'User',
   },

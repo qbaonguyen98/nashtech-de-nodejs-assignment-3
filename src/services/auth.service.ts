@@ -1,5 +1,3 @@
-import _ from 'lodash';
-import bcrypt from 'bcrypt';
 import { inject, injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
 import { DataStoredInToken, TokenData } from '../interfaces/auth.interface';
