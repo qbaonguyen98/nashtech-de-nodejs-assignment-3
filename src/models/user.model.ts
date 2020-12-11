@@ -20,7 +20,7 @@ const UserSchema = new Schema({
   },
   roleId: {
     type: mongoose.Types.ObjectId,
-    required: true,
+    default: null,
     ref: 'Role',
   },
   accountType: {
@@ -29,7 +29,7 @@ const UserSchema = new Schema({
   },
   profileId: {
     type: mongoose.Types.ObjectId,
-    required: true,
+    default: null,
     ref: 'UserProfile',
   },
   lastLogin: {
@@ -43,17 +43,22 @@ const UserSchema = new Schema({
   updatedDate: {
     type: Number,
   },
-  isDeleted: {
-    type: Boolean,
-    required: true,
-  },
-  isActive: {
-    type: Boolean,
-    required: true,
-  },
-  isLocked: {
-    type: Boolean,
-    required: true,
+  status: {
+    isDeleted: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    isLocked: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
   },
 });
 
