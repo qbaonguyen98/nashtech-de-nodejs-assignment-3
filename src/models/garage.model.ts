@@ -39,13 +39,11 @@ const GarageSchema = new Schema({
   },
   createdBy: {
     type: mongoose.Types.ObjectId,
-    required: true,
     ref: 'User',
   },
   createdDate: {
     type: Number,
     default: Date.now(),
-    required: true,
   },
   updatedBy: {
     type: mongoose.Types.ObjectId,
@@ -56,7 +54,6 @@ const GarageSchema = new Schema({
   },
   isDeleted: {
     type: Boolean,
-    required: true,
     default: false,
   },
 });

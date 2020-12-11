@@ -13,10 +13,10 @@ interface Garage {
     coordinates: Coordinates;
   };
   createdBy: string;
-  createdDate: number;
-  updatedBy: string;
-  updatedDate: number;
-  isDeleted: boolean;
+  createdDate?: number;
+  updatedBy?: string;
+  updatedDate?: number;
+  isDeleted?: boolean;
 }
 
 export default Garage;

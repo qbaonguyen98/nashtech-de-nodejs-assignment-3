@@ -12,7 +12,7 @@ import { RequestWithUser } from '../interfaces/auth.interface';
 
 import { CreateServiceDto } from './../dtos/services/create-service.dto';
 import { UpdateServiceDto } from './../dtos/services/update-services.dto';
-import { QueryServicesDto, ServicesFilterDto } from './../dtos/services/query-service.dto';
+import { QueryServicesDto } from './../dtos/services/query-service.dto';
 
 @injectable()
 class ServiceController {
