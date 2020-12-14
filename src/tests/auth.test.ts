@@ -12,7 +12,7 @@ const api = request(app.getServer());
 
 beforeAll(() => {
   RoleModel.create({ userRole: 'user' });
-})
+});
 
 afterAll(done => {
   mongoose.connection.dropDatabase(() => {
