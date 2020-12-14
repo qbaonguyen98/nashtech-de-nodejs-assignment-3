@@ -50,6 +50,10 @@ class UserRepository {
   public create = async (user: User): Promise<User> => {
     return await UserModel.create(user);
   };
+
+  public save = async (user: UserDocument): Promise<UserDocument> => {
+    return await user.save({ validateBeforeSave: true });
+  };
 }
 
 export default UserRepository;

@@ -1,10 +1,13 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 
 import AuthService from '../services/auth.service';
 import TYPES from '../types';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
 import User from '../interfaces/user.interface';
+import { DecodedToken } from '../interfaces/auth.interface';
+import HttpException from '../exceptions/HttpException';
 
 @injectable()
 class AuthController {
@@ -23,10 +26,15 @@ class AuthController {
   };
 
   public verify = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    if (!req.params.token) {
-      res.status(400).json({ message: 'We were unable to find a user for this token.' });
+    const token = req.params.token;
+    if (!token) {
+      next(new HttpException(400, 'We were unable to find a user for this token.'));
     }
     try {
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as DecodedToken;
+      console.log(decoded);
+      await this.authService.verify(decoded.id);
+      res.status(200).send('The account has been verified. Please log in.');
     } catch (error) {
       next(error);
     }

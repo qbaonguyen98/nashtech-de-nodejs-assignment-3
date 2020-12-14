@@ -54,26 +54,33 @@ class AuthService {
       accountType: 'internal',
     });
 
-    const token = jwt.sign(createUserData.id, process.env.TOKEN_SECRET as string, {
+    const token = await jwt.sign({ id: createUserData.id }, process.env.TOKEN_SECRET as string, {
       expiresIn: process.env.TOKEN_LIFE as string,
     });
 
     await this.requestVerifyAccount(userData, origin, token);
   };
 
+  public verify = async (userId): Promise<void> => {
+    const userData = await this.userRepository.findOne({ _id: userId });
+    if (!userData) {
+      throw new HttpException(400, 'We were unable to find a user for this user id.');
+    }
+    if (userData.isActive === true) {
+      throw new HttpException(400, 'This user has already been verified.');
+    }
+    userData.isActive = true;
+    await userData.save();
+  };
+
   private requestVerifyAccount = async (userData: CreateUserDto, origin, token) => {
-    let html;
     let verifyUrl;
     if (origin) {
-      verifyUrl = `${origin}/verify-acccount/${token}`;
-      html = `<p>Please click the below link to verify your email address:</p>
-                 <p><a href="${verifyUrl}">link</a></p>`;
+      verifyUrl = `${origin}/verify-account/${token}`;
     } else {
-      verifyUrl = `${process.env.CLIENT_URL}/verify-acccount/${token}`;
-      html = `<p>Please click the below link to verify your email address:</p>
-                 <p><a href="${verifyUrl}">link</a></p>`;
+      verifyUrl = `${process.env.CLIENT_URL}/verify-account/${token}`;
     }
-
+    const html = `<p>Please click the below link to verify your email address:</p> <p><a href="${verifyUrl}">link</a></p>`;
     const subject = 'Account Verification';
     const to = userData.email;
     const from = process.env.EMAIL_LOGIN;
