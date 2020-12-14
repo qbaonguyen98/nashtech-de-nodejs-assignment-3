@@ -15,7 +15,7 @@ class AuthController {
       const { cookie } = await this.authService.socialLogin(requestData);
 
       res.setHeader('Set-cookie', [cookie]);
-      res.status(200).json({ message: 'social login' });
+      res.status(200).json({ message: 'Social login' });
     } catch (error) {
       next(error);
     }

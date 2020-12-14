@@ -7,7 +7,7 @@ import container from '../inversify.config';
 import AuthRoute from '../routes/auth.route';
 import RoleModel from '../models/role.model';
 
-afterEach(done => {
+afterAll(done => {
   mongoose.connection.dropDatabase(() => {
     mongoose.connection.close(() => done());
   });
