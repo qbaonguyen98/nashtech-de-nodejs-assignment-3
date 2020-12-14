@@ -9,9 +9,11 @@ interface User {
   lastLogin: number;
   updatedBy?: string;
   updatedDate?: number;
-  isDeleted: boolean;
-  isActive: boolean;
-  isLocked: boolean;
+  status: {
+    isDeleted: boolean;
+    isActive: boolean;
+    isLocked: boolean;
+  };
 }
 
 export default User;

@@ -4,6 +4,7 @@ import { inject, injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
 import { DataStoredInToken, TokenData } from '../interfaces/auth.interface';
 import UserRepository from '../repositories/user.repository';
+import RoleRepository from '../repositories/role.repository';
 import TYPES from '../types';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
 import User from '../interfaces/user.interface';
@@ -13,7 +14,10 @@ import { transporter } from '../utils/send-email';
 
 @injectable()
 class AuthService {
-  constructor(@inject(TYPES.UserRepository) private userRepository: UserRepository) {}
+  constructor(
+    @inject(TYPES.UserRepository) private userRepository: UserRepository,
+    @inject(TYPES.RoleRepository) private roleRepository: UserRepository,
+  ) {}
 
   private createToken(id: string, role: string): TokenData {
     const dataStoredInToken: DataStoredInToken = { id, role };
@@ -44,13 +48,17 @@ class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
+    const userRole = await this.roleRepository.findOne({ userRole: 'user' });
     const createUserData = await this.userRepository.create({
       ...userData,
       password: hashedPassword,
-      isActive: false,
-      isLocked: false,
+      roleId: userRole._id,
+      status: {
+        isActive: false,
+        isLocked: false,
+        isDeleted: false,
+      },
       lastLogin: Date.now(),
-      isDeleted: false,
       accountType: 'internal',
     });
 
@@ -66,10 +74,10 @@ class AuthService {
     if (!userData) {
       throw new HttpException(400, 'We were unable to find a user for this user id.');
     }
-    if (userData.isActive === true) {
+    if (userData.status.isActive === true) {
       throw new HttpException(400, 'This user has already been verified.');
     }
-    userData.isActive = true;
+    userData.status.isActive = true;
     await userData.save();
   };
 
