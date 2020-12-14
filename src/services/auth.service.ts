@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import bcrypt from 'bcrypt';
 import { inject, injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
@@ -9,6 +8,8 @@ import HttpException from '../exceptions/HttpException';
 import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 import UserProfileRepository from '../repositories/user-profile.repository';
 import RoleRepository from '../repositories/role.repository';
+import { InternalLoginDto } from '../dtos/auth/login.dto';
+import { isEmptyObject } from '../utils/util';
 
 @injectable()
 class AuthService {
@@ -68,6 +69,41 @@ class AuthService {
 
     return {
       cookie,
+    };
+  };
+
+  public internalLogin = async (userData: InternalLoginDto): Promise<{ cookie: string; token: TokenData }> => {
+    if (isEmptyObject(userData)) {
+      throw new HttpException(400, 'Missing user information');
+    }
+
+    let user = await this.userRepository.findOne({
+      username: userData.username,
+    });
+
+    if (!user) {
+      throw new HttpException(404, 'User not found');
+    } else {
+      if (user.status.isLocked) {
+        throw new HttpException(403, 'User is locked');
+      }
+    }
+
+    const isPasswordMatch: boolean = bcrypt.compareSync(userData.password, user.password);
+    if (!isPasswordMatch) {
+      throw new HttpException(401, 'Incorrect password');
+    }
+
+    // update lastLogin info
+    const filter = { username: user.username };
+    user = await this.userRepository.findOne(filter);
+
+    const tokenData = this.createToken(user.id, 'user');
+    const cookie = this.createCookie(tokenData);
+
+    return {
+      cookie,
+      token: tokenData,
     };
   };
 
