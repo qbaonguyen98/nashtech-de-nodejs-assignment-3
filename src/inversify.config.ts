@@ -20,6 +20,10 @@ import BookingController from './controllers/booking.controller';
 import BookingService from './services/booking.service';
 import BookingRepository from './repositories/booking.repository';
 
+import UserProfileRepository from './repositories/user-profile.repository';
+
+import RoleRepository from './repositories/role.repository';
+
 const container = new Container({ defaultScope: 'Singleton' });
 
 // Auth
@@ -45,5 +49,11 @@ container.bind<GarageRepository>(TYPES.GarageRepository).to(GarageRepository);
 container.bind<BookingController>(TYPES.BookingController).to(BookingController);
 container.bind<BookingService>(TYPES.BookingService).to(BookingService);
 container.bind<BookingRepository>(TYPES.BookingRepository).to(BookingRepository);
+
+// UserProfile
+container.bind<UserProfileRepository>(TYPES.UserProfileRepository).to(UserProfileRepository);
+
+// Role
+container.bind<RoleRepository>(TYPES.RoleRepository).to(RoleRepository);
 
 export default container;

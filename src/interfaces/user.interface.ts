@@ -6,11 +6,18 @@ interface User {
   accountType: string;
   profileId: string;
   lastLogin: number;
-  updatedBy: string;
-  updatedDate: number;
-  isDeleted: boolean;
-  isActive: boolean;
-  isLocked: boolean;
+  updatedBy?: string;
+  updatedDate?: number;
+  status: UserStatus;
+}
+
+export interface UpdateUser {
+  roleId?: string;
+  profileId?: string;
+  lastLogin?: number;
+  updatedBy?: string;
+  updatedDate?: number;
+  status?: UserStatus;
 }
 
 export default User;

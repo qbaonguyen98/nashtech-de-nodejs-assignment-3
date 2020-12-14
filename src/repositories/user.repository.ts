@@ -3,7 +3,7 @@ import { MongooseFilterQuery } from 'mongoose';
 import { injectable } from 'inversify';
 
 import UserModel, { UserDocument } from '../models/user.model';
-import User from '../interfaces/user.interface';
+import User, { UpdateUser } from '../interfaces/user.interface';
 
 import { QueryOptions } from '../utils/query-builder';
 
@@ -16,10 +16,14 @@ class UserRepository {
     return await UserModel.findOne(
       {
         ...conditions,
-        isDeleted: false,
+        ...{ 'status.isDeleted': false },
       },
       options.fields,
     );
+  };
+
+  public create = async (user: User): Promise<UserDocument> => {
+    return await UserModel.create(user);
   };
 
   public find = async (conditions: MongooseFilterQuery<UserDocument> = {}, options: QueryOptions<UserDocument> = {}): Promise<UserDocument[]> => {
@@ -45,6 +49,10 @@ class UserRepository {
 
     const users = userQuery.exec();
     return users;
+  };
+
+  public findByIdAndUpdate = async (id: string, update: UpdateUser) => {
+    return await UserModel.findByIdAndUpdate(id, update);
   };
 }
 
