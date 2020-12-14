@@ -15,7 +15,6 @@ import HttpException from '../exceptions/HttpException';
 import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 import UserProfileRepository from '../repositories/user-profile.repository';
 
-
 @injectable()
 class AuthService {
   constructor(
