@@ -20,7 +20,7 @@ const UserSchema = new Schema({
   },
   roleId: {
     type: mongoose.Types.ObjectId,
-    required: true,
+
     ref: 'Role',
   },
   accountType: {
@@ -29,7 +29,7 @@ const UserSchema = new Schema({
   },
   profileId: {
     type: mongoose.Types.ObjectId,
-    required: true,
+
     ref: 'UserProfile',
   },
   lastLogin: {

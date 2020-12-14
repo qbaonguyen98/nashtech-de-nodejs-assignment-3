@@ -46,6 +46,10 @@ class UserRepository {
     const users = userQuery.exec();
     return users;
   };
+
+  public create = async (user: User): Promise<User> => {
+    return await UserModel.create(user);
+  };
 }
 
 export default UserRepository;

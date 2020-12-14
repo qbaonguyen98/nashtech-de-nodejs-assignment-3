@@ -3,6 +3,8 @@ import { inject, injectable } from 'inversify';
 import Route from '../interfaces/route.interface';
 import AuthController from '../controllers/auth.controller';
 import TYPES from '../types';
+import validationMiddleware from '../middlewares/validation.middleware';
+import { CreateUserDto } from '../dtos/users/create-user.dto';
 
 @injectable()
 class AuthRoute implements Route {
@@ -14,7 +16,8 @@ class AuthRoute implements Route {
   }
 
   private initializeRoutes() {
-    console.log('Auth route');
+    this.router.post(`${this.path}/register/internal`, validationMiddleware(CreateUserDto, 'body'), this.authController.register);
+    this.router.get(`${this.path}/verify-acccount/:token`, this.authController.verify);
   }
 }
 
