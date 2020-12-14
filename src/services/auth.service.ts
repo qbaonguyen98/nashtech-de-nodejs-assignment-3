@@ -74,9 +74,9 @@ class AuthService {
                  <p><a href="${verifyUrl}">link</a></p>`;
     }
 
-    let subject = 'Account Verification';
-    let to = userData.email;
-    let from = process.env.EMAIL_LOGIN;
+    const subject = 'Account Verification';
+    const to = userData.email;
+    const from = process.env.EMAIL_LOGIN;
     await transporter.sendMail({ from, to, subject, html }, function (err, info) {
       if (err) {
         console.log(err);

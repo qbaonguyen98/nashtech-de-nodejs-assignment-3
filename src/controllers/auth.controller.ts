@@ -13,7 +13,7 @@ class AuthController {
   public register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: CreateUserDto = req.body;
-      const origin  = req.get('origin');
+      const origin = req.get('origin');
       await this.authService.register(userData, origin);
 
       res.status(201).json({ message: 'A verification email has been sent to ' + userData.email + '.' });
@@ -24,14 +24,13 @@ class AuthController {
 
   public verify = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     if (!req.params.token) {
-      res.status(400).json({ message: "We were unable to find a user for this token." });
+      res.status(400).json({ message: 'We were unable to find a user for this token.' });
     }
     try {
-      
     } catch (error) {
       next(error);
     }
-  }
+  };
 }
 
 export default AuthController;
