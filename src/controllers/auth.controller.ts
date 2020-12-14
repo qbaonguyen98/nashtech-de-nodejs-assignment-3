@@ -1,5 +1,6 @@
-import { inject, injectable } from 'inversify';
 import { Request, Response, NextFunction } from 'express';
+import { inject, injectable } from 'inversify';
+
 import jwt from 'jsonwebtoken';
 
 import AuthService from '../services/auth.service';
@@ -8,6 +9,7 @@ import { CreateUserDto } from '../dtos/users/create-user.dto';
 import User from '../interfaces/user.interface';
 import { DecodedToken } from '../interfaces/auth.interface';
 import HttpException from '../exceptions/HttpException';
+import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 
 @injectable()
 class AuthController {
@@ -35,6 +37,18 @@ class AuthController {
       console.log(decoded);
       await this.authService.verify(decoded.id);
       res.status(200).send('The account has been verified. Please log in.');
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public socialLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const requestData: SocialLoginDto = req.body;
+      const { cookie } = await this.authService.socialLogin(requestData);
+
+      res.setHeader('Set-cookie', [cookie]);
+      res.status(200).json({ message: 'Social login' });
     } catch (error) {
       next(error);
     }

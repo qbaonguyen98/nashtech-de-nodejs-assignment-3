@@ -3,6 +3,8 @@ import { MongooseFilterQuery } from 'mongoose';
 import { injectable } from 'inversify';
 
 import RoleModel, { RoleDocument } from '../models/role.model';
+import Role from '../interfaces/role.interface';
+
 import { QueryOptions } from '../utils/query-builder';
 
 @injectable()

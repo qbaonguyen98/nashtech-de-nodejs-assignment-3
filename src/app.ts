@@ -40,7 +40,13 @@ class App {
   }
 
   private initializeDatabase() {
-    mongoose.connect(process.env.MONGO_DB || '', {
+    let mongodb = '';
+    if (this.env === 'testing') {
+      mongodb = process.env.MONGO_DB_TEST;
+    } else {
+      mongodb = process.env.MONGO_DB;
+    }
+    mongoose.connect(mongodb || '', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

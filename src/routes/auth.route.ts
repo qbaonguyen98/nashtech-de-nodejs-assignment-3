@@ -5,6 +5,7 @@ import AuthController from '../controllers/auth.controller';
 import TYPES from '../types';
 import validationMiddleware from '../middlewares/validation.middleware';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
+import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 
 @injectable()
 class AuthRoute implements Route {
@@ -18,6 +19,7 @@ class AuthRoute implements Route {
   private initializeRoutes() {
     this.router.post(`${this.path}/register/internal`, validationMiddleware(CreateUserDto, 'body'), this.authController.register);
     this.router.get(`/verify-account/:token`, this.authController.verify);
+    this.router.post(`${this.path}/login/social`, validationMiddleware(SocialLoginDto, 'body'), this.authController.socialLogin);
   }
 }
 
