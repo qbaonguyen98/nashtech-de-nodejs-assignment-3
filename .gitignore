@@ -1,5 +1,9 @@
-.env
-
+/.env
+/.DS_Store
+/.Rproj.user
+/.Rdata
+/.Rhistory
+/.httr-oauth
 /build
 /node_modules
 

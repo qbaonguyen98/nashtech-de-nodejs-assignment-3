@@ -19,10 +19,9 @@ import GarageRepository from './repositories/garage.repository';
 import BookingController from './controllers/booking.controller';
 import BookingService from './services/booking.service';
 import BookingRepository from './repositories/booking.repository';
+import RoleRepository from './repositories/role.repository';
 
 import UserProfileRepository from './repositories/user-profile.repository';
-
-import RoleRepository from './repositories/role.repository';
 
 const container = new Container({ defaultScope: 'Singleton' });
 
