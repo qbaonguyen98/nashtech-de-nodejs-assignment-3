@@ -1,17 +1,42 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import request from 'supertest';
+import bcrypt from 'bcrypt';
 import App from '../app';
 import container from '../inversify.config';
 import AuthRoute from '../routes/auth.route';
 import RoleModel from '../models/role.model';
+import UserProfileModel from '../models/user-profile.model';
+import UserModel from '../models/user.model';
 
 const authRoute = container.resolve<AuthRoute>(AuthRoute);
 const app = new App([authRoute]);
 const api = request(app.getServer());
 
-beforeAll(() => {
-  RoleModel.create({ userRole: 'user' });
+beforeAll(async () => {
+  const newRole = await RoleModel.create({ userRole: 'user' });
+
+  const newProfile = await UserProfileModel.create({
+    firstName: 'Toan',
+    lastName: 'Nguyen Nhut',
+    gender: 'male',
+    dateOfBirth: 123456789,
+  });
+
+  await UserModel.create({
+    username: 'toannguyen',
+    password: bcrypt.hashSync('toandeptrai', 10),
+    email: 'toandeptrai@gmail.com',
+    roleId: newRole._id,
+    accountType: 'internal',
+    profileId: newProfile._id,
+    lastLogin: 123456789,
+    status: {
+      isActive: true,
+      isDeleted: false,
+      isLocked: false,
+    },
+  });
 });
 
 afterAll(done => {
@@ -60,8 +85,8 @@ describe('Testing Auth', () => {
   describe('[POST] /auth/login/internal', () => {
     it('Should login success', async () => {
       const userLoginData = {
-        username: 'toannguyen2',
-        password: '12345678',
+        username: 'toannguyen',
+        password: 'toandeptrai',
       };
       await api.post('/auth/login/internal').send(userLoginData).expect(200);
     });
