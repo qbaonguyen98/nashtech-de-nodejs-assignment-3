@@ -13,6 +13,7 @@ export interface TokenData {
 
 export interface RequestWithUser extends Request {
   user: User;
+  role: string;
 }
 
 export interface DataStoredInSocialToken {

@@ -7,6 +7,7 @@ import validationMiddleware from '../middlewares/validation.middleware';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
 import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 import authMiddleware from '../middlewares/auth.middleware';
+import { RequestEmailDto } from '../dtos/auth/auth.dto';
 
 @injectable()
 class AuthRoute implements Route {
@@ -22,7 +23,8 @@ class AuthRoute implements Route {
     this.router.get(`${this.path}/verify-account/:token`, this.authController.verify);
     this.router.post(`${this.path}/login/social`, validationMiddleware(SocialLoginDto, 'body'), this.authController.socialLogin);
     this.router.post(`${this.path}/logout`, authMiddleware, this.authController.logOut);
-    this.router.post(`${this.path}/reset-password/:token`, validationMiddleware('body'), this.authController.resetPassword);
+    this.router.post(`${this.path}/recover-password`, validationMiddleware(RequestEmailDto,'body'), this.authController.recoverPassword);
+    this.router.post(`${this.path}/`)
   }
 }
 

@@ -3,13 +3,15 @@ import { inject, injectable } from 'inversify';
 
 import jwt from 'jsonwebtoken';
 
+import { InternalLoginDto } from '../dtos/auth/login.dto';
+import { SocialLoginDto } from '../dtos/auth/social-login.dto';
+
 import AuthService from '../services/auth.service';
 import TYPES from '../types';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
 import User from '../interfaces/user.interface';
 import { DecodedToken, RequestWithUser } from '../interfaces/auth.interface';
 import HttpException from '../exceptions/HttpException';
-import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 
 @injectable()
 class AuthController {
@@ -66,6 +68,18 @@ class AuthController {
 
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
       res.status(200).json({ data: logOutUserData, message: 'logout' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public internalLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData: InternalLoginDto = req.body;
+      const result = await this.authService.internalLogin(userData);
+
+      res.setHeader('Set-cookie', [result.cookie]);
+      res.status(200).json({ message: 'Login success', token: result.token });
     } catch (error) {
       next(error);
     }

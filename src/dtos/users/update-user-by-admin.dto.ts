@@ -18,7 +18,4 @@ export class UpdateUserByAdminDto {
 
   @IsBoolean()
   public isLocked: boolean;
-
-  @IsBoolean()
-  public isDeleted: boolean;
 }

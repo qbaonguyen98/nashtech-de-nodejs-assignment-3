@@ -3,7 +3,7 @@ import HttpException from '../exceptions/HttpException';
 import { RequestWithUser } from '../interfaces/auth.interface';
 
 const adminMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-  const userRole = req.user.role;
+  const userRole = req.role;
   if (userRole === 'admin') {
     next();
   } else {
