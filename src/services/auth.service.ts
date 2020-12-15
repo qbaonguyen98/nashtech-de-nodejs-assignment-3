@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { inject, injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
+import _ from 'lodash';
 import { DataStoredInSocialToken, DataStoredInToken, TokenData } from '../interfaces/auth.interface';
 import UserRepository from '../repositories/user.repository';
 import TYPES from '../types';
@@ -81,9 +82,14 @@ class AuthService {
       throw new HttpException(400, 'Missing user information');
     }
 
-    let user = await this.userRepository.findOne({
-      username: userData.username,
-    });
+    const user = await this.userRepository.findOne(
+      {
+        username: userData.username,
+      },
+      {
+        populate: ['roleId'],
+      },
+    );
 
     if (!user) {
       throw new HttpException(404, 'User not found');
@@ -98,11 +104,7 @@ class AuthService {
       throw new HttpException(401, 'Incorrect password');
     }
 
-    // update lastLogin info
-    const filter = { username: user.username };
-    user = await this.userRepository.findOne(filter);
-
-    const tokenData = this.createToken(user.id, 'user');
+    const tokenData = this.createToken(user.id, _.get(user.roleId, 'userRole'));
     const cookie = this.createCookie(tokenData);
 
     return {
