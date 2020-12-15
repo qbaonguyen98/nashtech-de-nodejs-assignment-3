@@ -57,12 +57,22 @@ describe('Testing Auth', () => {
         });
     });
   });
+  describe('[POST] /auth/login/internal', () => {
+    it('Should login success', async () => {
+      const userLoginData = {
+        username: 'toannguyen2',
+        password: '12345678',
+      };
+      await api.post('/auth/login/internal').send(userLoginData).expect(200);
+    });
+  });
+
   describe('[POST] /auth/register/internal', () => {
     it('Register success - Should response with status 200', async () => {
       const registerUser = {
-        username: 'Hiep nguyen',
+        username: 'hiepnguyen',
         email: 'np71379@gmail.com',
-        password: '1234567',
+        password: '12345678',
       };
       await api
         .post('/auth/register/internal')
@@ -73,16 +83,4 @@ describe('Testing Auth', () => {
         });
     });
   });
-});
-
-describe('[POST] /auth/login/internal', () => {
-  it('Should login success', async () => {
-    const userLoginData = {
-      username: 'toannguyen2',
-      password: '12345678',
-    };
-    await api.post('/auth/login/internal').send(userLoginData).expect(200);
-  });
-
-  it('should ');
 });
