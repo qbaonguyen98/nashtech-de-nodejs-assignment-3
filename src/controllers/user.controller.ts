@@ -10,7 +10,7 @@ import { UpdateUserByAdminDto } from '../dtos/users/update-user-by-admin.dto';
 
 @injectable()
 class AuthController {
-  constructor(@inject(TYPES.UserService) private userService: UserService) {}
+  constructor(@inject(TYPES.UserService) private userService: UserService) { }
 
   public getUserList = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {

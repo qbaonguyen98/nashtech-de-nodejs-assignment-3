@@ -18,6 +18,7 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
 
       if (findUser) {
         req.user = findUser;
+        req.role = verificationResponse.role;
         next();
       } else {
         next(new HttpException(401, 'Wrong authentication token'));

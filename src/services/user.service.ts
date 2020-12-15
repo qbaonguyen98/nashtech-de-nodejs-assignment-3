@@ -20,7 +20,8 @@ class UserService {
     @inject(TYPES.UserRepository) private userRepository: UserRepository,
     @inject(TYPES.UserProfileRepository) private userProfileRepository: UserProfileRepository,
     @inject(TYPES.RoleRepository) private roleRepository: RoleRepository,
-  ) {}
+  ) { }
+
 
   public getUserList = async (): Promise<UserListDto[]> => {
     const userList: UserListDto[] = [];
@@ -67,26 +68,12 @@ class UserService {
   };
 
   public updateUserByAdmin = async (userData: UpdateUserByAdminDto): Promise<void> => {
-    if (!userData.id) {
-      throw new HttpException(400, 'Invalid user id');
-    }
-    if (
-      !userData.firstName ||
-      !userData.lastName ||
-      !userData.gender ||
-      !userData.dateOfBirth ||
-      _.isUndefined(userData.isLocked) ||
-      _.isUndefined(userData.isDeleted)
-    ) {
-      throw new HttpException(400, 'Missing user information');
-    }
 
     const user = await this.userRepository.findOne({ _id: userData.id });
     if (!user) {
       throw new HttpException(404, 'User not found');
     }
 
-    user.status.isDeleted = userData.isDeleted;
     user.status.isLocked = userData.isLocked;
     await this.userRepository.save(user);
 
@@ -103,25 +90,15 @@ class UserService {
       await this.userRepository.save(user);
     }
 
-    await this.userProfileRepository.findOneAndUpdate(
-      { _id: user.profileId },
-      {
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        gender: userData.gender,
-        dateOfBirth: userData.dateOfBirth,
-      },
-    );
-  };
+    await this.userProfileRepository.findOneAndUpdate({ _id: user.profileId }, {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      gender: userData.gender,
+      dateOfBirth: userData.dateOfBirth,
+    });
+  }
 
   public updateUserProfile = async (userData: UpdateUserProfileDto): Promise<void> => {
-    if (!userData.id) {
-      throw new HttpException(400, 'Invalid user id');
-    }
-    if (!userData.firstName || !userData.lastName || !userData.gender || !userData.dateOfBirth) {
-      throw new HttpException(400, 'Missing user information');
-    }
-
     const user = await this.userRepository.findOne({ _id: userData.id });
     if (!user) {
       throw new HttpException(404, 'User not found');
