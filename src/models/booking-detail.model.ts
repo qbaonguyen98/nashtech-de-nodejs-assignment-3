@@ -7,7 +7,7 @@ const BookingDetailSchema = new Schema({
   garageServiceId: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: 'GarageService',
+    ref: 'garage-service',
   },
   price: {
     type: Number,
@@ -15,4 +15,4 @@ const BookingDetailSchema = new Schema({
   },
 });
 
-export default mongoose.model<BookingDetailDocument>('BookingDetail', BookingDetailSchema);
+export default mongoose.model<BookingDetailDocument>('booking-detail', BookingDetailSchema);

@@ -11,7 +11,7 @@ const BookingSchema = new Schema({
   bookingDetailId: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: 'BookingDetail',
+    ref: 'booking-detail',
   },
   reservationDate: {
     type: Number,
@@ -24,7 +24,7 @@ const BookingSchema = new Schema({
   createdBy: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: 'User',
+    ref: 'user',
   },
   createdDate: {
     type: Number,
@@ -38,4 +38,4 @@ const BookingSchema = new Schema({
   },
 });
 
-export default mongoose.model<BookingDocument>('Booking', BookingSchema);
+export default mongoose.model<BookingDocument>('booking', BookingSchema);

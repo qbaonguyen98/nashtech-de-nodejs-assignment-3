@@ -60,13 +60,12 @@ class UserProfileRepository {
     conditions: MongooseFilterQuery<UserProfileDocument> = {},
 
     update: UserProfile,
-
   ): Promise<UserProfileDocument | null> => {
     return await UserProfileModel.findOneAndUpdate(
       {
         ...conditions,
       },
-      update
+      update,
     );
   };
 }

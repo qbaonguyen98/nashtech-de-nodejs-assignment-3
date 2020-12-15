@@ -28,24 +28,22 @@ const ServiceSchema = new Schema({
     required: true,
   },
   createdBy: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     default: null,
-    required: true,
-    ref: 'User',
+    required: false,
   },
   createdDate: {
     type: Number,
     required: true,
-    default: Date.now(),
+    default: new Date(),
   },
   updatedBy: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     default: null,
-    ref: 'User',
+    ref: 'user',
   },
   updatedDate: {
     type: Number,
-    default: new Date(),
   },
   isDeleted: {
     type: Boolean,
@@ -54,4 +52,4 @@ const ServiceSchema = new Schema({
   },
 });
 
-export default mongoose.model<ServiceDocument>('Service', ServiceSchema);
+export default mongoose.model<ServiceDocument>('service', ServiceSchema);

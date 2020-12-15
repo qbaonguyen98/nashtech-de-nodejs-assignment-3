@@ -23,6 +23,9 @@ const TYPES = {
   BookingService: Symbol.for('BookingService'),
   BookingRepository: Symbol.for('BookingRepository'),
 
+  // GarageService
+  GarageServiceRepository: Symbol.for('GarageServiceRepository'),
+
   // UserProfile
   UserProfileRepository: Symbol.for('UserProfileRepository'),
 

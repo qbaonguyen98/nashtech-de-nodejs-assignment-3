@@ -39,26 +39,23 @@ const GarageSchema = new Schema({
   },
   createdBy: {
     type: mongoose.Types.ObjectId,
-    required: true,
-    ref: 'User',
+    ref: 'user',
   },
   createdDate: {
     type: Number,
     default: Date.now(),
-    required: true,
   },
   updatedBy: {
     type: mongoose.Types.ObjectId,
-    ref: 'User',
+    ref: 'user',
   },
   updatedDate: {
     type: Number,
   },
   isDeleted: {
     type: Boolean,
-    required: true,
     default: false,
   },
 });
 
-export default mongoose.model<GarageDocument>('Garage', GarageSchema);
+export default mongoose.model<GarageDocument>('garage', GarageSchema);

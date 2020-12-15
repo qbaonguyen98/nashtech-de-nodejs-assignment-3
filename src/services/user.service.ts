@@ -20,8 +20,7 @@ class UserService {
     @inject(TYPES.UserRepository) private userRepository: UserRepository,
     @inject(TYPES.UserProfileRepository) private userProfileRepository: UserProfileRepository,
     @inject(TYPES.RoleRepository) private roleRepository: RoleRepository,
-  ) { }
-
+  ) {}
 
   public getUserList = async (): Promise<UserListDto[]> => {
     const userList: UserListDto[] = [];
@@ -68,7 +67,6 @@ class UserService {
   };
 
   public updateUserByAdmin = async (userData: UpdateUserByAdminDto): Promise<void> => {
-
     const user = await this.userRepository.findOne({ _id: userData.id });
     if (!user) {
       throw new HttpException(404, 'User not found');
@@ -90,13 +88,16 @@ class UserService {
       await this.userRepository.save(user);
     }
 
-    await this.userProfileRepository.findOneAndUpdate({ _id: user.profileId }, {
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      gender: userData.gender,
-      dateOfBirth: userData.dateOfBirth,
-    });
-  }
+    await this.userProfileRepository.findOneAndUpdate(
+      { _id: user.profileId },
+      {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        gender: userData.gender,
+        dateOfBirth: userData.dateOfBirth,
+      },
+    );
+  };
 
   public updateUserProfile = async (userData: UpdateUserProfileDto): Promise<void> => {
     const user = await this.userRepository.findOne({ _id: userData.id });

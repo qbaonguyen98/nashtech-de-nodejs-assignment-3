@@ -7,13 +7,21 @@ const GarageServiceSchema = new Schema({
   garageId: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: 'Garage',
+    ref: 'garage',
   },
   serviceId: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: 'Service',
+    ref: 'service',
+  },
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    ref: 'user',
+  },
+  createdDate: {
+    type: Number,
+    default: Date.now(),
   },
 });
 
-export default mongoose.model<GarageServiceDocument>('GarageService', GarageServiceSchema);
+export default mongoose.model<GarageServiceDocument>('garage-service', GarageServiceSchema);
