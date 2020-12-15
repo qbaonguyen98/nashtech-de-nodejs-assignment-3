@@ -37,10 +37,6 @@ class UserRepository {
     return await UserModel.create(user);
   };
 
-  public create = async (user: User): Promise<UserDocument> => {
-    return await UserModel.create(user);
-  };
-
   public find = async (conditions: MongooseFilterQuery<UserDocument> = {}, options: QueryOptions<UserDocument> = {}): Promise<UserDocument[]> => {
     let userQuery = UserModel.find(
       {
