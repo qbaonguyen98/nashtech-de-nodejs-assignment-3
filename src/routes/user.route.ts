@@ -8,6 +8,7 @@ import adminMiddleware from '../middlewares/admin.middleware';
 import validationMiddleware from '../middlewares/validation.middleware';
 import { UpdateUserByAdminDto } from '../dtos/users/update-user-by-admin.dto';
 import { UpdateUserProfileDto } from '../dtos/users/update-user-profile.dto';
+import userMiddleware from '../middlewares/user.middleware';
 
 @injectable()
 class UserRoute implements Route {
@@ -20,8 +21,8 @@ class UserRoute implements Route {
 
   private initializeRoutes() {
     this.router.get(`${this.path}`, authMiddleware, adminMiddleware, this.userController.getUserList);
-    this.router.get(`${this.path}/:username`, authMiddleware, this.userController.getUser);
-    this.router.put(`${this.path}/profile/:username`, authMiddleware, validationMiddleware(UpdateUserProfileDto, 'body'), this.userController.updateUserProfile);
+    this.router.get(`${this.path}/:username`, authMiddleware, userMiddleware, this.userController.getUser);
+    this.router.put(`${this.path}/profile/:username`, authMiddleware, userMiddleware, validationMiddleware(UpdateUserProfileDto, 'body'), this.userController.updateUserProfile);
     this.router.put(`${this.path}/:username`, authMiddleware, adminMiddleware, validationMiddleware(UpdateUserByAdminDto, 'body'), this.userController.updateUserByAdmin);
     this.router.delete(`${this.path}/:username`, authMiddleware, adminMiddleware, this.userController.deleteUser);
   }
