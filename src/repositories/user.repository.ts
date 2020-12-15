@@ -13,13 +13,28 @@ class UserRepository {
     conditions: MongooseFilterQuery<UserDocument> = {},
     options: QueryOptions<UserDocument> = {},
   ): Promise<UserDocument | null> => {
-    return await UserModel.findOne(
+    let userQuery = UserModel.findOne(
       {
         ...conditions,
-        ...{ 'status.isDeleted': false },
+        ...{
+          'status.isDeleted': false,
+        },
       },
       options.fields,
     );
+
+    if (options.populate) {
+      for (const p of _.uniq(options.populate)) {
+        userQuery = userQuery.populate(p);
+      }
+    }
+
+    const user = userQuery.exec();
+    return user;
+  };
+
+  public create = async (user: User): Promise<UserDocument> => {
+    return await UserModel.create(user);
   };
 
   public create = async (user: User): Promise<UserDocument> => {
@@ -30,7 +45,9 @@ class UserRepository {
     let userQuery = UserModel.find(
       {
         ...conditions,
-        isDeleted: false,
+        ...{
+          'status.isDeleted': false,
+        },
       },
       options.fields,
       {
@@ -54,8 +71,12 @@ class UserRepository {
   public save = async (user: UserDocument): Promise<UserDocument> => {
     return await user.save({ validateBeforeSave: true });
   };
-  public findByIdAndUpdate = async (id: string, update: UpdateUser) => {
+  public findByIdAndUpdate = async (id: string, update: UpdateUser): Promise<UserDocument> => {
     return await UserModel.findByIdAndUpdate(id, update);
+  };
+
+  public save = async (user: UserDocument): Promise<UserDocument> => {
+    return await user.save({ validateBeforeSave: true });
   };
 }
 
