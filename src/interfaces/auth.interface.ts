@@ -21,3 +21,7 @@ export interface DataStoredInSocialToken {
   given_name: string;
   family_name: string;
 }
+
+export interface DecodedToken {
+  id: string;
+}

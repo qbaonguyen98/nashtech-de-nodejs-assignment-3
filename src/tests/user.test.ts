@@ -84,7 +84,6 @@ const userRoute = container.resolve<UserRoute>(UserRoute);
 const app = new App([userRoute]);
 const api = request(app.getServer());
 
-
 describe('Testing User', () => {
   describe('[GET] /users', () => {
     it('Request by admin - Should response with an array of users', async () => {
