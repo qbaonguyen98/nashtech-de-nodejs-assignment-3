@@ -1,19 +1,21 @@
-import _ from 'lodash';
 import bcrypt from 'bcrypt';
 import { inject, injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
+import _ from 'lodash';
 import { DataStoredInSocialToken, DataStoredInToken, TokenData } from '../interfaces/auth.interface';
 import UserRepository from '../repositories/user.repository';
-import RoleRepository from '../repositories/role.repository';
 import TYPES from '../types';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
 import User from '../interfaces/user.interface';
-import { isEmptyObject } from '../utils/util';
 
 import { transporter } from '../utils/send-email';
 import HttpException from '../exceptions/HttpException';
 import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 import UserProfileRepository from '../repositories/user-profile.repository';
+
+import RoleRepository from '../repositories/role.repository';
+import { InternalLoginDto } from '../dtos/auth/login.dto';
+import { isEmptyObject } from '../utils/util';
 
 @injectable()
 class AuthService {
@@ -73,6 +75,42 @@ class AuthService {
 
     return {
       cookie,
+    };
+  };
+
+  public internalLogin = async (userData: InternalLoginDto): Promise<{ cookie: string; token: TokenData }> => {
+    if (isEmptyObject(userData)) {
+      throw new HttpException(400, 'Missing user information');
+    }
+
+    const user = await this.userRepository.findOne(
+      {
+        username: userData.username,
+      },
+      {
+        populate: ['roleId'],
+      },
+    );
+
+    if (!user) {
+      throw new HttpException(404, 'User not found');
+    } else {
+      if (user.status.isLocked) {
+        throw new HttpException(403, 'User is locked');
+      }
+    }
+
+    const isPasswordMatch: boolean = bcrypt.compareSync(userData.password, user.password);
+    if (!isPasswordMatch) {
+      throw new HttpException(401, 'Incorrect password');
+    }
+
+    const tokenData = this.createToken(user.id, _.get(user.roleId, 'userRole'));
+    const cookie = this.createCookie(tokenData);
+
+    return {
+      cookie,
+      token: tokenData,
     };
   };
 
