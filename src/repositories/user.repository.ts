@@ -64,6 +64,9 @@ class UserRepository {
     return users;
   };
 
+  public save = async (user: UserDocument): Promise<UserDocument> => {
+    return await user.save({ validateBeforeSave: true });
+  };
   public findByIdAndUpdate = async (id: string, update: UpdateUser): Promise<UserDocument> => {
     return await UserModel.findByIdAndUpdate(id, update);
   };
