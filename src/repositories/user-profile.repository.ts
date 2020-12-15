@@ -16,7 +16,6 @@ class UserProfileRepository {
     return await UserProfileModel.findOne(
       {
         ...conditions,
-        isDeleted: false,
       },
       options.fields,
     );
@@ -52,6 +51,10 @@ class UserProfileRepository {
 
     const users = userQuery.exec();
     return users;
+  };
+
+  public save = async (userProfile: UserProfileDocument): Promise<UserProfileDocument> => {
+    return await userProfile.save({ validateBeforeSave: true });
   };
 }
 
