@@ -99,12 +99,12 @@ class UserService {
       await this.userRepository.save(user);
     }
 
-    const profile = await this.userProfileRepository.findOne({ _id: user.profileId });
-    profile.firstName = userData.firstName;
-    profile.lastName = userData.lastName;
-    profile.gender = userData.gender;
-    profile.dateOfBirth = userData.dateOfBirth;
-    await this.userProfileRepository.save(profile);
+    await this.userProfileRepository.findOneAndUpdate({ _id: user.profileId }, {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      gender: userData.gender,
+      dateOfBirth: userData.dateOfBirth,
+    });
   }
 
   public updateUserProfile = async (userData: UpdateUserProfileDto): Promise<void> => {
