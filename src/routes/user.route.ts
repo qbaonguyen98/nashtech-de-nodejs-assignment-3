@@ -14,7 +14,11 @@ class UserRoute implements Route {
   }
 
   private initializeRoutes() {
-    console.log('User route');
+    this.router.get(`${this.path}`, this.userController.getUserList);
+    this.router.get(`${this.path}/:username`, this.userController.getUser);
+    this.router.put(`${this.path}/profile/:username`, this.userController.updateUserProfile);
+    this.router.put(`${this.path}/:username`, this.userController.updateUserByAdmin);
+    this.router.delete(`${this.path}/:username`, this.userController.deleteUser);
   }
 }
 

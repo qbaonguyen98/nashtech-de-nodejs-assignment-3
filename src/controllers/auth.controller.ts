@@ -7,7 +7,7 @@ import AuthService from '../services/auth.service';
 import TYPES from '../types';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
 import User from '../interfaces/user.interface';
-import { DecodedToken } from '../interfaces/auth.interface';
+import { DecodedToken, RequestWithUser } from '../interfaces/auth.interface';
 import HttpException from '../exceptions/HttpException';
 import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 
@@ -15,18 +15,24 @@ import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 class AuthController {
   constructor(@inject(TYPES.AuthService) private authService: AuthService) {}
 
+  // @route POST /auth/register/internal
+  // @desc Register user
+  // @access Public
   public register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: CreateUserDto = req.body;
       const origin = req.get('origin');
       await this.authService.register(userData, origin);
-
       res.status(201).json({ message: 'A verification email has been sent to ' + userData.email + '.' });
     } catch (error) {
       next(error);
     }
   };
 
+  // EMAIL VERIFICATION
+  // @route GET /auth/verify-account/:token
+  // @desc Verify token
+  // @access Public
   public verify = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const token = req.params.token;
@@ -48,6 +54,29 @@ class AuthController {
 
       res.setHeader('Set-cookie', [cookie]);
       res.status(200).json({ message: 'Social login' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData: User = req.user;
+      const logOutUserData: User = await this.authService.logout(userData);
+
+      res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
+      res.status(200).json({ data: logOutUserData, message: 'logout' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public recoverPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userEmail = req.body;
+      const origin = req.get('origin');
+      const tokenData = await this.authService.recoverPassword(userEmail, origin);
+      res.status(200).json({ message: 'Social login', tokendata: tokenData });
     } catch (error) {
       next(error);
     }

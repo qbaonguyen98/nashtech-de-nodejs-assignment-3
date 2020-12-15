@@ -16,7 +16,6 @@ class UserProfileRepository {
     return await UserProfileModel.findOne(
       {
         ...conditions,
-        isDeleted: false,
       },
       options.fields,
     );
@@ -33,7 +32,6 @@ class UserProfileRepository {
     let userQuery = UserProfileModel.find(
       {
         ...conditions,
-        isDeleted: false,
       },
       options.fields,
       {
@@ -52,6 +50,22 @@ class UserProfileRepository {
 
     const users = userQuery.exec();
     return users;
+  };
+
+  public save = async (userProfile: UserProfileDocument): Promise<UserProfileDocument> => {
+    return await userProfile.save({ validateBeforeSave: true });
+  };
+
+  public findOneAndUpdate = async (
+    conditions: MongooseFilterQuery<UserProfileDocument> = {},
+    update: UserProfile,
+  ): Promise<UserProfileDocument | null> => {
+    return await UserProfileModel.findOneAndUpdate(
+      {
+        ...conditions,
+      },
+      update,
+    );
   };
 }
 

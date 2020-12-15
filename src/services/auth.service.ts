@@ -14,6 +14,8 @@ import { transporter } from '../utils/send-email';
 import HttpException from '../exceptions/HttpException';
 import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 import UserProfileRepository from '../repositories/user-profile.repository';
+import { UserDocument } from '../models/user.model';
+import { RequestEmailDto } from '../dtos/auth/auth.dto';
 
 @injectable()
 class AuthService {
@@ -96,17 +98,16 @@ class AuthService {
       throw new HttpException(400, 'Missing user information');
     }
 
-    const findUserEmail: User = await this.userRepository.findOne({
+    const findUserEmail: UserDocument = await this.userRepository.findOne({
       email: userData.email,
     });
-
     if (findUserEmail) {
       throw new HttpException(409, `Username already exist. The email address you entered is already associated with another account.`);
     }
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     const userRole = await this.roleRepository.findOne({ userRole: 'user' });
-    const createUserData = await this.userRepository.create({
+    const createUserData: UserDocument = await this.userRepository.create({
       ...userData,
       password: hashedPassword,
       roleId: userRole._id,
@@ -119,11 +120,9 @@ class AuthService {
       accountType: 'internal',
     });
 
-    const token = await jwt.sign({ id: createUserData.id }, process.env.TOKEN_SECRET as string, {
-      expiresIn: process.env.TOKEN_LIFE as string,
-    });
+    const tokenData = await this.createToken(createUserData.id, 'user');
 
-    await this.requestVerifyAccount(userData, origin, token);
+    await this.sendVerificationEmail(createUserData, origin, tokenData.token);
   };
 
   public verify = async (userId): Promise<void> => {
@@ -138,12 +137,12 @@ class AuthService {
     await userData.save();
   };
 
-  private requestVerifyAccount = async (userData: CreateUserDto, origin, token) => {
+  private sendVerificationEmail = async (userData: UserDocument, origin, token) => {
     let verifyUrl;
     if (origin) {
       verifyUrl = `${origin}/auth/verify-account/${token}`;
     } else {
-      verifyUrl = `${process.env.CLIENT_URL}/auth/verify-account/${token}`;
+      verifyUrl = `${process.env.HOST_URL}/auth/verify-account/${token}`;
     }
     const html = `<p>Please click the below link to verify your email address:</p> <p><a href="${verifyUrl}">link</a></p>`;
     const subject = 'Account Verification';
@@ -156,6 +155,30 @@ class AuthService {
         console.log('Message sent: ' + info.response);
       }
     });
+  };
+
+  public async logout(userData: User): Promise<User> {
+    if (isEmptyObject(userData)) throw new HttpException(400, "You're not userData");
+
+    const findUser = this.userRepository.findOne({ password: userData.password });
+    if (!findUser) throw new HttpException(409, "You're not user");
+
+    return findUser;
+  }
+
+  public recoverPassword = async (userEmail: RequestEmailDto, origin): Promise<TokenData> => {
+    const findUserEmail = await this.userRepository.findOne({
+      email: userEmail.email,
+    });
+    if (!findUserEmail) {
+      throw new HttpException(
+        409,
+        `The email address ${userEmail.email} is not associated with any account. Double check your email address and try again.`,
+      );
+    }
+    const tokenData = await this.createToken(findUserEmail.id, 'user');
+    return tokenData;
+    // await this.requestVerifyAccount(findUserEmail, origin, tokenData.token);
   };
 }
 
