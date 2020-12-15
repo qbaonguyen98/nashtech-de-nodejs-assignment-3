@@ -28,13 +28,12 @@ class AuthController {
   };
 
   public verify = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const token = req.params.token;
-    if (!token) {
-      next(new HttpException(400, 'We were unable to find a user for this token.'));
-    }
     try {
+      const token = req.params.token;
+      if (!token) {
+        next(new HttpException(400, 'We were unable to find a user for this token.'));
+      }
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as DecodedToken;
-      console.log(decoded);
       await this.authService.verify(decoded.id);
       res.status(200).send('The account has been verified. Please log in.');
     } catch (error) {

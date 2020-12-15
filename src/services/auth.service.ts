@@ -141,9 +141,9 @@ class AuthService {
   private requestVerifyAccount = async (userData: CreateUserDto, origin, token) => {
     let verifyUrl;
     if (origin) {
-      verifyUrl = `${origin}/verify-account/${token}`;
+      verifyUrl = `${origin}/auth/verify-account/${token}`;
     } else {
-      verifyUrl = `${process.env.CLIENT_URL}/verify-account/${token}`;
+      verifyUrl = `${process.env.CLIENT_URL}/auth/verify-account/${token}`;
     }
     const html = `<p>Please click the below link to verify your email address:</p> <p><a href="${verifyUrl}">link</a></p>`;
     const subject = 'Account Verification';
