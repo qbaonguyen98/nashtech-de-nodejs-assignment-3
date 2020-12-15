@@ -72,7 +72,6 @@ class UserService {
       throw new HttpException(404, 'User not found');
     }
 
-    user.status.isDeleted = userData.isDeleted;
     user.status.isLocked = userData.isLocked;
     await this.userRepository.save(user);
 
