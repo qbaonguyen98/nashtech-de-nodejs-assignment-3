@@ -14,10 +14,11 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
       const secret = process.env.JWT_SECRET;
       const verificationResponse = jwt.verify(cookies.Authorization, secret) as DataStoredInToken;
       const userId = verificationResponse.id;
-      const findUser: User = await userRepository.findOne({ _id: userId }, '-password');
+      const findUser: User = await userRepository.findOne({ _id: userId });
 
       if (findUser) {
         req.user = findUser;
+        req.role = verificationResponse.role;
         next();
       } else {
         next(new HttpException(401, 'Wrong authentication token'));
