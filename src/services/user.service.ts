@@ -22,7 +22,6 @@ class UserService {
     @inject(TYPES.RoleRepository) private roleRepository: RoleRepository,
   ) {}
 
-
   public getUserList = async (): Promise<UserListDto[]> => {
     const userList: UserListDto[] = [];
 
@@ -68,7 +67,6 @@ class UserService {
   };
 
   public updateUserByAdmin = async (userData: UpdateUserByAdminDto): Promise<void> => {
-
     const user = await this.userRepository.findOne({ _id: userData.id });
     if (!user) {
       throw new HttpException(404, 'User not found');

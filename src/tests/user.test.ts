@@ -10,8 +10,8 @@ import RoleModel from '../models/role.model';
 import UserModel from '../models/user.model';
 import UserProfileModel from '../models/user-profile.model';
 
-let adminCookie: string = '';
-let userCookie: string = '';
+let adminCookie = '';
+let userCookie = '';
 
 beforeAll(async () => {
   // create a user for testing
@@ -65,12 +65,12 @@ beforeAll(async () => {
   const secret: string = process.env.JWT_SECRET;
   const expiresIn: number = 60 * 60 * 60;
 
-  const adminToken = jwt.sign({ id: admin._id, role: 'admin' }, secret, { expiresIn })
-  adminCookie = `Authorization=${adminToken}; HttpOnly; Max-Age=${expiresIn};`
+  const adminToken = jwt.sign({ id: admin._id, role: 'admin' }, secret, { expiresIn });
+  adminCookie = `Authorization=${adminToken}; HttpOnly; Max-Age=${expiresIn};`;
 
   // Create user cookie
-  const userToken = jwt.sign({ id: user._id, role: 'user' }, secret, { expiresIn })
-  userCookie = `Authorization=${userToken}; HttpOnly; Max-Age=${expiresIn};`
+  const userToken = jwt.sign({ id: user._id, role: 'user' }, secret, { expiresIn });
+  userCookie = `Authorization=${userToken}; HttpOnly; Max-Age=${expiresIn};`;
 });
 
 afterAll(done => {

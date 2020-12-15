@@ -23,8 +23,8 @@ class AuthRoute implements Route {
     this.router.get(`${this.path}/verify-account/:token`, this.authController.verify);
     this.router.post(`${this.path}/login/social`, validationMiddleware(SocialLoginDto, 'body'), this.authController.socialLogin);
     this.router.post(`${this.path}/logout`, authMiddleware, this.authController.logOut);
-    this.router.post(`${this.path}/recover-password`, validationMiddleware(RequestEmailDto,'body'), this.authController.recoverPassword);
-    this.router.post(`${this.path}/`)
+    this.router.post(`${this.path}/recover-password`, validationMiddleware(RequestEmailDto, 'body'), this.authController.recoverPassword);
+    this.router.post(`${this.path}/`);
   }
 }
 

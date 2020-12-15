@@ -22,8 +22,20 @@ class UserRoute implements Route {
   private initializeRoutes() {
     this.router.get(`${this.path}`, authMiddleware, adminMiddleware, this.userController.getUserList);
     this.router.get(`${this.path}/:username`, authMiddleware, userMiddleware, this.userController.getUser);
-    this.router.put(`${this.path}/profile/:username`, authMiddleware, userMiddleware, validationMiddleware(UpdateUserProfileDto, 'body'), this.userController.updateUserProfile);
-    this.router.put(`${this.path}/:username`, authMiddleware, adminMiddleware, validationMiddleware(UpdateUserByAdminDto, 'body'), this.userController.updateUserByAdmin);
+    this.router.put(
+      `${this.path}/profile/:username`,
+      authMiddleware,
+      userMiddleware,
+      validationMiddleware(UpdateUserProfileDto, 'body'),
+      this.userController.updateUserProfile,
+    );
+    this.router.put(
+      `${this.path}/:username`,
+      authMiddleware,
+      adminMiddleware,
+      validationMiddleware(UpdateUserByAdminDto, 'body'),
+      this.userController.updateUserByAdmin,
+    );
     this.router.delete(`${this.path}/:username`, authMiddleware, adminMiddleware, this.userController.deleteUser);
   }
 }
