@@ -163,8 +163,8 @@ class AuthService {
     await this.sendVerificationEmail(createUserData, origin, tokenData.token);
   };
 
-  public verify = async (userId): Promise<void> => {
-    const userData = await this.userRepository.findOne({ _id: userId });
+  public verify = async (user: User): Promise<void> => {
+    const userData = await this.userRepository.findOne({ _id: user.id });
     if (!userData) {
       throw new HttpException(400, 'We were unable to find a user for this user id.');
     }
@@ -180,7 +180,7 @@ class AuthService {
     if (origin) {
       verifyUrl = `${origin}/auth/verify-account/${token}`;
     } else {
-      verifyUrl = `${process.env.HOST_URL}/auth/verify-account/${token}`;
+      verifyUrl = `${process.env.CLIENT_URL}/auth/verify-account?token=${token}`;
     }
     const html = `<p>Please click the below link to verify your email address:</p> <p><a href="${verifyUrl}">link</a></p>`;
     const subject = 'Account Verification';

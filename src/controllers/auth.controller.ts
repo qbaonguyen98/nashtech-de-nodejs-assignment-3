@@ -9,9 +9,9 @@ import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 import AuthService from '../services/auth.service';
 import TYPES from '../types';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
-import User from '../interfaces/user.interface';
 import { DecodedToken, RequestWithUser } from '../interfaces/auth.interface';
 import HttpException from '../exceptions/HttpException';
+import User from '../interfaces/user.interface';
 
 @injectable()
 class AuthController {
@@ -35,14 +35,15 @@ class AuthController {
   // @route GET /auth/verify-account/:token
   // @desc Verify token
   // @access Public
-  public verify = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public verify = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const token = req.params.token;
-      if (!token) {
-        next(new HttpException(400, 'We were unable to find a user for this token.'));
-      }
-      const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as DecodedToken;
-      await this.authService.verify(decoded.id);
+      // const token = req.params.token;
+      // if (!token) {
+      //   next(new HttpException(400, 'We were unable to find a user for this token.'));
+      // }
+      // const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as DecodedToken;
+      const user: User = req.user;
+      await this.authService.verify(user);
       res.status(200).send('The account has been verified. Please log in.');
     } catch (error) {
       next(error);
