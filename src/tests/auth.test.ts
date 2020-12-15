@@ -5,7 +5,6 @@ import App from '../app';
 import container from '../inversify.config';
 import AuthRoute from '../routes/auth.route';
 import RoleModel from '../models/role.model';
-import userModel from '../models/user.model';
 
 const authRoute = container.resolve<AuthRoute>(AuthRoute);
 const app = new App([authRoute]);
@@ -20,10 +19,6 @@ afterAll(done => {
     mongoose.connection.close(() => done());
   });
 });
-
-const authRoute = container.resolve<AuthRoute>(AuthRoute);
-const app = new App([authRoute]);
-const api = request(app.getServer());
 
 describe('Testing Auth', () => {
   describe('[POST] /login/social', () => {
@@ -42,10 +37,7 @@ describe('Testing Auth', () => {
 
     it('Invalid idToken - Should response with status 400', async () => {
       const idToken = 'akjshdiuqwhyeuiqwhdjihnaskd';
-<<<<<<< HEAD
-=======
 
->>>>>>> 931d8dc (add: internal login unit test)
       await api
         .post('/auth/login/social')
         .send({ idToken })

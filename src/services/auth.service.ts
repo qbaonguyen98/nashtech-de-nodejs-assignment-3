@@ -7,14 +7,15 @@ import UserRepository from '../repositories/user.repository';
 import TYPES from '../types';
 import { CreateUserDto } from '../dtos/users/create-user.dto';
 import User from '../interfaces/user.interface';
-import RoleRepository from '../repositories/role.repository';
-import { InternalLoginDto } from '../dtos/auth/login.dto';
-import { isEmptyObject } from '../utils/util';
 
 import { transporter } from '../utils/send-email';
 import HttpException from '../exceptions/HttpException';
 import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 import UserProfileRepository from '../repositories/user-profile.repository';
+
+import RoleRepository from '../repositories/role.repository';
+import { InternalLoginDto } from '../dtos/auth/login.dto';
+import { isEmptyObject } from '../utils/util';
 
 @injectable()
 class AuthService {
