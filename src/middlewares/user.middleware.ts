@@ -12,7 +12,7 @@ const userMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
     next();
   } else {
     if (userId !== req.body.id) {
-      next(new HttpException(403, 'Access denied'))
+      next(new HttpException(403, 'Access denied'));
     } else {
       next();
     }
