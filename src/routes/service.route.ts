@@ -26,18 +26,18 @@ class ServiceRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`/`, authMiddleware, validationMiddleware(QueryServicesDto, 'body'), this.serviceController.findAll);
-    this.router.post(`/`, authMiddleware, adminMiddleware, validationMiddleware(CreateServiceDto, 'body'), this.serviceController.create);
+    this.router.get(`${this.path}`, authMiddleware, validationMiddleware(QueryServicesDto, 'body'), this.serviceController.findAll);
+    this.router.post(`${this.path}`, authMiddleware, adminMiddleware, validationMiddleware(CreateServiceDto, 'body'), this.serviceController.create);
     this.router.put(
-      `/:serviceId`,
+      `${this.path}/:serviceId`,
       authMiddleware,
       adminMiddleware,
       validationMiddleware(UpdateServiceDto, 'body'),
       this.serviceController.updateById,
     );
-    this.router.delete(`/:serviceId`, authMiddleware, adminMiddleware, this.serviceController.deleteById);
+    this.router.delete(`${this.path}/:serviceId`, authMiddleware, adminMiddleware, this.serviceController.deleteById);
     this.router.post(
-      `/update-image/:serviceId`,
+      `${this.path}/update-image/:serviceId`,
       authMiddleware,
       adminMiddleware,
       validationMiddleware(UploadImageService, 'body'),

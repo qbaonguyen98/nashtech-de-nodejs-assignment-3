@@ -24,24 +24,30 @@ class GarageRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`/`, authMiddleware, validationMiddleware(QueryGaragesDto, 'body'), this.garageController.findAll);
-    this.router.post(`/`, authMiddleware, adminMiddleware, validationMiddleware(CreateGarageDto, 'body'), this.garageController.create);
-    this.router.put(`/:garageId`, authMiddleware, adminMiddleware, validationMiddleware(UpdateGarageDto, 'body'), this.garageController.updateById);
+    this.router.get(`${this.path}`, authMiddleware, validationMiddleware(QueryGaragesDto, 'body'), this.garageController.findAll);
+    this.router.post(`${this.path}`, authMiddleware, adminMiddleware, validationMiddleware(CreateGarageDto, 'body'), this.garageController.create);
     this.router.put(
-      `/services/:garageId`,
+      `${this.path}/:garageId`,
+      authMiddleware,
+      adminMiddleware,
+      validationMiddleware(UpdateGarageDto, 'body'),
+      this.garageController.updateById,
+    );
+    this.router.put(
+      `${this.path}/services/:garageId`,
       authMiddleware,
       adminMiddleware,
       validationMiddleware(GarageUpdateServicesDto, 'body'),
       this.garageController.addServices,
     );
     this.router.delete(
-      `/services/:garageId`,
+      `${this.path}/services/:garageId`,
       authMiddleware,
       adminMiddleware,
       validationMiddleware(GarageUpdateServicesDto, 'body'),
       this.garageController.deleteServices,
     );
-    this.router.delete(`/:garageId`, authMiddleware, adminMiddleware, this.garageController.deleteById);
+    this.router.delete(`${this.path}/:garageId`, authMiddleware, adminMiddleware, this.garageController.deleteById);
   }
 }
 

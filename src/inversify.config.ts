@@ -22,6 +22,7 @@ import BookingRepository from './repositories/booking.repository';
 import RoleRepository from './repositories/role.repository';
 
 import UserProfileRepository from './repositories/user-profile.repository';
+import GarageServiceRepository from './repositories/garage-service.repository';
 
 const container = new Container({ defaultScope: 'Singleton' });
 
@@ -43,6 +44,9 @@ container.bind<ServiceRepository>(TYPES.ServiceRepository).to(ServiceRepository)
 container.bind<GarageController>(TYPES.GarageController).to(GarageController);
 container.bind<GarageService>(TYPES.GarageService).to(GarageService);
 container.bind<GarageRepository>(TYPES.GarageRepository).to(GarageRepository);
+
+// Garage Service
+container.bind<GarageServiceRepository>(TYPES.GarageServiceRepository).to(GarageServiceRepository);
 
 // Booking
 container.bind<BookingController>(TYPES.BookingController).to(BookingController);
