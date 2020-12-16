@@ -1,4 +1,4 @@
-import { IsEmail, IsJWT, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsJWT, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class RequestTokenDto {
   @IsString()
@@ -29,4 +29,15 @@ export class RequestVerifyDto {
   @IsJWT()
   @IsNotEmpty()
   public token: string;
+}
+
+export class ResetPasswordDto {
+  @IsEmail()
+  @IsNotEmpty()
+  public email: string;
+
+  @IsString()
+  @MinLength(6)
+  @MaxLength(20)
+  public newPassword: string;
 }

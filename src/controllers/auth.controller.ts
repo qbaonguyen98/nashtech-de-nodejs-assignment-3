@@ -12,6 +12,7 @@ import { CreateUserDto } from '../dtos/users/create-user.dto';
 import { DecodedToken, RequestWithUser } from '../interfaces/auth.interface';
 import HttpException from '../exceptions/HttpException';
 import User from '../interfaces/user.interface';
+import { ResetPasswordDto } from '../dtos/auth/auth.dto';
 
 @injectable()
 class AuthController {
@@ -34,7 +35,7 @@ class AuthController {
   // EMAIL VERIFICATION
   // @route GET /auth/verify-account/:token
   // @desc Verify token
-  // @access Public
+  // @access Protective
   public verify = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       // const token = req.params.token;
@@ -90,8 +91,17 @@ class AuthController {
     try {
       const userEmail = req.body;
       const origin = req.get('origin');
-      const tokenData = await this.authService.recoverPassword(userEmail, origin);
-      res.status(200).json({ message: 'Social login', tokendata: tokenData });
+      await this.authService.recoverPassword(userEmail);
+      res.status(200).json({ message: 'Please check your email for password reset instructions' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public resetpassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { userEmail, newPassword } = req.body;
+      await this.authService.resetPassword(userEmail, newPassword);
     } catch (error) {
       next(error);
     }

@@ -195,6 +195,22 @@ class AuthService {
     });
   };
 
+  private sendPasswordRecoverEmail = async (userData: UserDocument, token) => {
+    const resetUrl = `${process.env.CLIENT_URL}/auth/reset-password?token=${token}`;
+    const html = `<p>Please click the below link to reset your password:</p>
+    <p><a href="${resetUrl}">link</a></p>`;
+    const subject = 'Reset Password';
+    const to = userData.email;
+    const from = process.env.EMAIL_LOGIN;
+    await transporter.sendMail({ from, to, subject, html }, function (err, info) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Message sent: ' + info.response);
+      }
+    });
+  };
+
   public async logout(userData: User): Promise<User> {
     if (isEmptyObject(userData)) throw new HttpException(400, "You're not userData");
 
@@ -204,7 +220,7 @@ class AuthService {
     return findUser;
   }
 
-  public recoverPassword = async (userEmail: RequestEmailDto, origin): Promise<TokenData> => {
+  public recoverPassword = async (userEmail: RequestEmailDto): Promise<void> => {
     const findUserEmail = await this.userRepository.findOne({
       email: userEmail.email,
     });
@@ -215,8 +231,7 @@ class AuthService {
       );
     }
     const tokenData = await this.createToken(findUserEmail.id, 'user');
-    return tokenData;
-    // await this.requestVerifyAccount(findUserEmail, origin, tokenData.token);
+    await this.sendPasswordRecoverEmail(findUserEmail, tokenData.token);
   };
 }
 
