@@ -32,9 +32,21 @@ export class RequestVerifyDto {
 }
 
 export class ResetPasswordDto {
+  @IsString()
+  @MinLength(6)
+  @MaxLength(20)
+  public newPassword: string;
+}
+
+export class ChangePasswordDto {
   @IsEmail()
   @IsNotEmpty()
   public email: string;
+
+  @IsString()
+  @MinLength(6)
+  @MaxLength(20)
+  public oldPassword: string;
 
   @IsString()
   @MinLength(6)

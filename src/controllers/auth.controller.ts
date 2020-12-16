@@ -12,7 +12,7 @@ import { CreateUserDto } from '../dtos/users/create-user.dto';
 import { DecodedToken, RequestWithUser } from '../interfaces/auth.interface';
 import HttpException from '../exceptions/HttpException';
 import User from '../interfaces/user.interface';
-import { ResetPasswordDto } from '../dtos/auth/auth.dto';
+import { ChangePasswordDto, ResetPasswordDto } from '../dtos/auth/auth.dto';
 
 @injectable()
 class AuthController {
@@ -45,7 +45,7 @@ class AuthController {
       // const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as DecodedToken;
       const user: User = req.user;
       await this.authService.verify(user);
-      res.status(200).send('The account has been verified. Please log in.');
+      res.status(200).send({ message: 'The account has been verified. Please log in.' });
     } catch (error) {
       next(error);
     }
@@ -98,10 +98,21 @@ class AuthController {
     }
   };
 
-  public resetpassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public resetpassword = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { userEmail, newPassword } = req.body;
-      await this.authService.resetPassword(userEmail, newPassword);
+      const { newPassword } = req.body;
+      const user: User = req.user;
+      await this.authService.resetPassword(user, newPassword);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public changePassword = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData: ChangePasswordDto = req.body;
+      const user: User = req.user;
+      await this.authService.changePassword(user, userData);
     } catch (error) {
       next(error);
     }

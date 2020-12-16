@@ -13,7 +13,7 @@ import HttpException from '../exceptions/HttpException';
 import { SocialLoginDto } from '../dtos/auth/social-login.dto';
 import UserProfileRepository from '../repositories/user-profile.repository';
 import { UserDocument } from '../models/user.model';
-import { RequestEmailDto } from '../dtos/auth/auth.dto';
+import { ChangePasswordDto, RequestEmailDto } from '../dtos/auth/auth.dto';
 
 import RoleRepository from '../repositories/role.repository';
 import { InternalLoginDto } from '../dtos/auth/login.dto';
@@ -172,7 +172,7 @@ class AuthService {
       throw new HttpException(400, 'This user has already been verified.');
     }
     userData.status.isActive = true;
-    await userData.save();
+    await await this.userRepository.save(userData);
   };
 
   private sendVerificationEmail = async (userData: UserDocument, origin, token) => {
@@ -232,6 +232,49 @@ class AuthService {
     }
     const tokenData = await this.createToken(findUserEmail.id, 'user');
     await this.sendPasswordRecoverEmail(findUserEmail, tokenData.token);
+  };
+
+  public resetPassword = async (user: User, newPassword: string): Promise<void> => {
+    const userData = await this.userRepository.findOne({ _id: user.id });
+    if (!userData) {
+      throw new HttpException(400, 'We were unable to find a user for this user id.');
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    userData.password = hashedNewPassword;
+    await this.userRepository.save(userData);
+  };
+
+  public changePassword = async (user: User, userData: ChangePasswordDto): Promise<void> => {
+    if (isEmptyObject(userData)) {
+      throw new HttpException(400, 'Missing user information');
+    }
+
+    const findUser = await this.userRepository.findOne({ _id: user.id });
+    if (!findUser) {
+      throw new HttpException(400, 'We were unable to find a user for this user id.');
+    }
+
+    const findUserEmail: UserDocument = await this.userRepository.findOne({
+      email: userData.email,
+    });
+    if (findUserEmail) {
+      throw new HttpException(409, `Username already exist. The email address you entered is already associated with another account.`);
+    }
+
+    if (findUser.email !== findUserEmail.email) {
+      throw new HttpException(400, `This email is not belong to this user.`);
+    }
+
+    const hashedOldPassword = await bcrypt.hash(userData.oldPassword, 10);
+
+    if (findUser.password !== hashedOldPassword) {
+      throw new HttpException(400, `Incorrect Password.`);
+    }
+
+    const hashedNewPassword = await bcrypt.hash(userData.newPassword, 10);
+    findUser.password = hashedNewPassword;
+    await this.userRepository.save(findUser);
   };
 }
 
