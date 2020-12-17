@@ -36,9 +36,9 @@ npm run dev
 
 The documentation is divided into several sections:
 
-- [Product Specification](./docs/docs/product-specifications.md)
-- [System Requirement Specification](./system-specification.md)
-- [Deployment](./deployment-document.md)
+- [Product Specification](./docs/product-specifications.md)
+- [System Requirement Specification](./docs/system-specification.md)
+- [Deployment](./docs/deployment-document.md)
 
 ## Feature Changelog
 
