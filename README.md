@@ -33,6 +33,10 @@ npm run dev
 
 The documentation is divided into several sections:
 
+- [Product Specification]()
+- [System Requirement Specification]()
+- [Deployment]()
+
 ## Feature Changelog
 
 ### 0.0.1
@@ -43,13 +47,13 @@ The documentation is divided into several sections:
 
 We are grateful to the community for contributing bugfixes and improvements. Read below to learn about our submission process, coding rules and more.
 
-### [Code of Conduct](#)
+### [Code of Conduct](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/code-of-conduct.md)
 
-Garage Booking has adopted Code of Conduct that we expect project participants to adhere to. Please read [the full text](#) so that you can understand what actions will and will not be tolerated.
+Garage Booking has adopted Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/code-of-conduct.md) so that you can understand what actions will and will not be tolerated.
 
-### [Contributing Guide](#)
+### [Contributing Guide](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/contributing-guide.md)
 
-Read our [contributing guide](#) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+Read our [contributing guide](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/contributing-guide.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
 
 ## Authors
 

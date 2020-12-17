@@ -41,16 +41,16 @@ User's site is where users can view garages and services that our system provide
 
 ### ERD
 
-![ERD](./assets/a3-ERD.png)
+![ERD](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/assets/a3-ERD.png)
 
 ### Back-end
 
 #### Technologies
 
-- [Node.js](https://example.com)
-- [Express.js](https://example.com)
-- [TypeScript](https://example.com)
-- [Inversify](https://example.com)
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Inversify](https://inversify.io/)
 
 Project structure:
 
@@ -106,9 +106,10 @@ app
 
 **Brief Description**
 The administrator logins by the supplied account to get authorization accesses to the Garage Services Booking Dashboard System with Admin role.
-**Initial Step-By-Step Description**
 
-1. The administrator clicks to the button Login on the top left of the website.
+Initial Step-By-Step Description:
+
+1. The administrator clicks to the Login button on the top left of the website.
 2. The system navigates to the login page.
 3. The Administrator enters the correct username into the username text box.
 4. The system validates the username input is supplied by the Administrator and display the error in case the input is incorrect.
@@ -117,14 +118,70 @@ The administrator logins by the supplied account to get authorization accesses t
 7. The Administrator clicks the sign up button.
 8. The system navigates to the homepage if the account entered by Administrator is correct. In contrast, the system displays the error message.
 
-### Register
+**Use case:** Admin manages all registered users.
 
-Working in Progress
+**Brief Description**
+After logging in, admin can see a list of registered users.
+
+Initial Step-By-Step Description:
+
+1. After logging in by admin, the system will automatically fetch users data from server.
+2. Fetched data will be displayed as a table of users with 3 field: full name, email, last login.
+
+#### User Use Cases
+
+**Use case:** Register an internal account.
+
+**Brief Description**
+User registers an internal account.
+
+Initial Step-By-Step Description:
+
+1. User clicks on the Register button on the top right of the home page
+2. User enters username, email and password
+3. The system validates user inputs
+4. User clicks Create button
+5. The system sends verification email to user
+6. User click on the verification link
+7. Account created
 
 ### Login
 
-Working in Progress
+**Use case:** Login with an internal account.
 
-### User Management
+**Brief Description**
+User login with a registered internal account.
 
-Working in Progress
+Initial Step-By-Step Description:
+
+1. User clicks on the Login button on the top right of the home page.
+2. User enter username and password.
+3. The system validates user inputs.
+4. User clicks on the Login button.
+5. The system redirect user to user page or admin page if login successfully. If not, the system displays error message.
+
+**Use case:** Login with a Google account.
+
+**Brief Description**
+User logins with a Google account.
+
+Initial Step-By-Step Description:
+
+1. User clicks on the Login button on the top right of the home page.
+2. User click on Login with google button.
+3. User enter Google account and password.
+4. The system redirect user to user page or admin page if login successfully. If not, the system displays error message.
+
+## System Features
+
+### Authentication
+
+- Register for an internal account and login
+- Login with google account
+
+### User
+
+- Admin can get all users with 3 fields: full name, email, last login.
+- User can get their own detail information with 9 fields: first name, last name, gender, date of birth, username, email, account type, last login, is locked or not.
+- User can update their user profile with 4 fields: first name, last name, gender, date of birth.
+- Admin can edit user profile, lock or unlock user and delete user.
