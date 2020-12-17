@@ -147,7 +147,7 @@ Description: User can login with their google account.
 This endpoints require a valid Token to be included in the cookies of the request. A Token can be acquired from the Login.
 
 #### Get all users
-Description: Get users in system and return a list of users. 
+Description: Get users in system and return a list of users.
 
 - **URL**: /users
 - **Method**: GET

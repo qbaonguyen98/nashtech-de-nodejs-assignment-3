@@ -1,6 +1,8 @@
-# Garage Booking - Product Specification
+# GARAGE BOOKING - PRODUCT SPECIFICATION DOCUMENT
 
-## Purpose
+## Introduction
+
+### `Purpose`
 
 The purpose of this document is to present a detailed description of the Web Garage Services Booking. It will explain:
 
@@ -11,101 +13,218 @@ The purpose of this document is to present a detailed description of the Web Gar
 
 The document is intended for both stakeholders and the developers of the system.
 
-## Glossary
+### `Intended Audience and Reading Suggestions`
 
-### Term
+Primary readers of this document are the developers, team members and stakeholders of this project. Secondary readers are administrators or people interested in the project.
 
-#### Definition
+Contributors to this document are the members of the team.
 
-- **Database**: A collection of all the information monitored by this system.
-- **Administrator**: Person who can monitor and control the system.
-- **Users**: can update personal information and create booking.
-- **Field**: A cell within a form.
-- **Product Specification**: A document that completely describes all of the functions of a proposed system and the constraints under which it must operate.
-- **Stakeholder**: Any person with an interest in the project who is not a developer.
+The following document contains the functional, user and design requirements for Garage Services Booking application and supporting software, as well as user manuals, project information and planning.
 
-## Product Summary
+### `Project Scopes`
 
-Garage Booking provides 2 separated sites: Admin site (only for admin) and User site (for registered users)
+This software system will be a Web Publishing System for a Garage Services Booking Company.
+More specifically, this system is designed to allow administrators to manage:
 
-An administrator can monitor and control the system by:
+- The booking orders from clients.
+- The services of company.
+- The garages of company.
+- The clients who use the website.
 
-- **Manage users**: view all users, lock or unlock users, edit user profiles.
-- **Manage services**: view all available services, create, update and delete a service.
-- **Manage garages**: view all garages, create, update and delete a garage.
-- **Manage booking**: view all bookings, create, update and delete a booking.
+The system also contains a relational database containing a list of Users, Services, Garages and Booking.
 
-User's site is where users can view garages and services that our system provides and start booking for a garage
+### `Glossary`
 
-## Architecture Design
+**Database**:
+Collection of all the information monitored by this system.
 
-### ERD
+**Actor**:
+Administrator of the website, or web user.
 
-![ERD](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/assets/a3-ERD.png)
+**Field**:
+A cell within a form.
 
-### Back-end
+**Product Specification**:
+A document that completely describes all of the functions of a proposed system and the constraints under which it must operate.
 
-#### Technologies
+**Stakeholder**:
+Any person with an interest in the project who is not a developer.
 
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Inversify](https://inversify.io/)
+## Overall Description
 
-Project structure:
+### `Product Features`
 
-```text
-src
-├── controllers/
-├── dtos/
-├── exceptions/
-├── interfaces/
-├── middlewares/
-├── models/
-├── repositories/
-├── routes/
-├── services/
-├── tests/
-├── utils/
-├── inversify.config.ts
-├── types.ts
-├── server.ts
-└── app.ts
-```
+#### **Major features**
 
-### Front-end
+- Authorization Sites
+  - Register
+  - Login
+    - Internal Login
+    - Social Login
+  - Verify Account
+  - Recover Password
+- Personal Profile Sites
+  - Profile Detail
+  - Edit profile page
+- Garage Sites
+  - Garage List Page
+  - Garage Detail Page
+- Service Sites
+  - Service List Page
+  - Service Detail Page
+- Booking Sites
+  - Create booking Page
+  - Booking List Page
+  - Booking Detail Page
+- Minor Features
+  - Home Page
 
-Technologies used: Angular, Material CSS
+#### **Admin features**
 
-Project structure:
+- Dashboard Sites
+  - Users Management Sites
+    - Users List Page
+    - User Detail Page
+    - Edit User Page
+    - Delete User Page
+  - Garages Management Sites
+    - Garages List Page
+    - Add Garage Page
+    - Edit Garage Page
+    - Delete Garage Page
+  - Services Management Sites:
+    - Services List Page
+    - Add Service Page
+    - Edit Service Page
+    - Delete Service Page
+  - Booking Management Sites:
+    - Booking List Page
+    - Booking Detail Page
+    - Delete Booking Page
 
-```text
-app
-├── configs/
-├── core/
-├── data/
-├── layout/
-├── modules/
-│   └── auth/
-│       └── page/
-│           │── login/
-│           └── register/
-├── app-routing.module.ts
-├── app.component.html
-├── app.component.scss
-├── app.component.ts
-├── app.module.ts
-└── material.module.ts
-```
+### User Classes and Characteristics
 
-## Functional Specifications
+There are two types of users: mobile, web and administrators.
 
-### Welcome page
+The project's main audience is web users who is customer of the Garage Services Booking Company. Users will be able to use all the features of role user of the project.
 
-**Description**: The application include 2 buttons: login button and register button. These button link to login and register pages. The page also include logo and info about site.
+Second users are mobile users. There users are also the customers or someone who interested in garage services. They will be able to use all the features as web non-mobile but not make sense for their context in some case.
 
-#### Functional requirements
+Admin users are typically on a non-mobile device and control all the data of system.
 
+### `Design and Implementation Constraints`
+
+#### ERD
+
+![ERD](./a3-ERD.png)
+
+#### Implementation Constraints
+
+**Back-end**
+
+- Programming Languages: Typescript
+- Technologies used
+  - Node.js
+  - Express.js
+  - Mongoose
+  - Bcrypt
+  - Jest
+  - Class-validator
+  - Winston
+  - Morgan
+  - @google-cloud/storage
+  - Swagger
+  - Inversify
+  - EditorConfig
+  - ESLint
+  - Prettier
+  - Husky
+- Technical Constraints
+  - Apply SOLID principle.
+  - Resource files upload must be less then 10MB.
+  - Dependency Injection.
+  - Geo Location supported browsers.
+- Database: MongoDB
+- Software Dependencies:
+  - Google Maps API
+
+- Project structure:
+
+  ``` typescript
+  src
+  ├── controllers/
+  ├── dtos/
+  ├── exceptions/
+  ├── interfaces/
+  ├── middlewares/
+  ├── models/
+  ├── repositories/
+  ├── routes/
+  ├── services/
+  ├── tests/
+  ├── utils/
+  ├── inversify.config.ts
+  ├── types.ts
+  ├── server.ts
+  └── app.ts
+  ```
+
+### User Documentation
+
+**Front-end**
+
+- Technologies used
+  - Angular
+  - HTML
+  - Material CSS
+  - angularx-social-login
+- Technical Constraints
+  - Apply SOLID principle
+  - Resource files upload must be less then 10MB
+  - Dependency Injection
+  - Geo Location supported browsers
+- Project structure:
+  
+  ``` typescript
+  app
+  ├── configs/
+  ├── core/
+  ├── data/
+  ├── layout/
+  ├── modules/
+  │   └── auth/
+  │       └── page/
+  │           │── login/
+  │           └── register/
+  ├── app-routing.module.ts
+  ├── app.component.html
+  ├── app.component.scss
+  ├── app.component.ts
+  ├── app.module.ts
+  └── material.module.ts
+  ```
+
+### Assumptions and Dependencies
+
+This project is dependant on the Google API and Heroku, the use of google cloud storage to store service's images and the supporting staff to develop and maintain it.
+
+It is assumed Google will continue supporting their free APIs.
+
+It is assumed Google CLoud Storage will continue to support development and hosting of the project.
+
+## System features
+
+### `Front-end`
+
+#### Welcome page
+
+**Description**
+The page includes:
+
+- 2 buttons: login button and register button. These button link to login and register pages.
+- Logo and info about site.
+
+**Functional requirements**
 Navigate to Login page:
 
 - User clicks on login button.
@@ -116,120 +235,94 @@ Navigate to Register page:
 - User clicks on register button.
 - The system redirects user to register page.
 
-### Register page
+#### Register page
 
-**Description**: The page include 2 buttons: login button and register button (these button link to login and register pages); 4 fields: username, email, password, confirm password; create account button
+**Description**
+The page include 2 buttons: login button and register button (these button link to login and register pages); 4 fields: username, email, password, confirm password; create account button
 Page also include logo and info about site
 
-### Administrator use case
+**Functional requirements**
+Navigate to Login page:
 
-**Use case:** Login to system with internal account.
+- User clicks on login button
+- The system redirects user to login page
 
-**Description**: The administrator logins by the supplied account to get authorization accesses to the Garage Services Booking Dashboard System with Admin role.
+Navigate to Register page:
 
-Initial Step-By-Step Description:
+- User clicks on register button
+- The system redirects user to register page
 
-1. The administrator clicks to the Login button on the top left of the website.
-2. The system navigates to the login page.
-3. The Administrator enters the correct username into the username text box.
-4. The system validates the username input is supplied by the Administrator and display the error in case the input is incorrect.
-5. The Administrator enter the correct password into the password text box.
-6. The system validates the password input is supplied by the Administrator and display the error in case the input is incorrect.
-7. The Administrator clicks the sign up button.
-8. The system navigates to the homepage if the account entered by Administrator is correct. In contrast, the system displays the error message.
+Register for a new account:
 
-**Use case:** Admin manages all registered users.
+- User enters username, email and password
+- The system validates user inputs
+- User clicks Create button
+- The system sends verification email to user
+- User click on the verification link
+- System redirect user to verify page
+- Account created
 
-**Description**: After logging in, admin can see a list of registered users.
+#### Login page
 
-Initial Step-By-Step Description:
+**Description**
+The page includes:
 
-1. After logging in by admin, the system will automatically fetch users data from server.
-2. Fetched data will be displayed as a table of users with 3 field: full name, email, last login.
+- 2 buttons: login button and register button (these button link to login and register pages).
+- 4 fields: username, password; login button; login with google button.
+- Logo and info about site.
 
-#### User Use Cases
+**Functional requirements**
 
-**Use case:** Register an internal account.
+Navigate to Login page
+  
+- User clicks on login button
+- The system redirects user to login page
 
-**Description**: User registers an internal account.
+Navigate to Register page:
 
-Initial Step-By-Step Description:
+- User clicks on register button.
+- The system redirects user to register page.
 
-1. User clicks on the Register button on the top right of the home page
-2. User enters username, email and password
-3. The system validates user inputs
-4. User clicks Create button
-5. The system sends verification email to user
-6. User click on the verification link
-7. Account created
+Login with internal account:
 
-### Login
+- User enter username and password.
+- The system validates user inputs.
+- User clicks on the Login button.
+- The system redirect user to user page or admin page if login successfully. If not, the system displays error message.
 
-**Use case:** Login with an internal account.
+Login with google account:
 
-**Description**: User login with a registered internal account.
+- User click on Login with google button
+- User enter Google account and password
+- The system redirect user to user page or admin page if login successfully. If not, the system displays error message
 
-Initial Step-By-Step Description:
-
-1. User clicks on the Login button on the top right of the home page.
-2. User enter username and password.
-3. The system validates user inputs.
-4. User clicks on the Login button.
-5. The system redirect user to user page or admin page if login successfuly. If not, the system displays error message.
-
-**Use case:** Login with a Google account.
-
-**Description**: User logins with a Google account.
-
-Initial Step-By-Step Description:
-
-1. User clicks on the Login button on the top right of the home page.
-2. User click on Login with google button.
-3. User enter Google account and password.
-4. The system redirect user to user page or admin page if login successfuly. If not, the system displays error message.
-
-## System Features
-
-### Authentication
-
-- Register for an internal account and login
-- Login with google account
-
-### Admin
-
-- Admin can get all users with 3 fields: full name, email, last login.
-- Admin can edit user profile, lock or unlock user and delete user.
-
-### User
-
-- User can get their own detail information with 9 fields: first name, last name, gender, date of birth, username, email, account type, last login, is locked or not.
-- User can update their user profile with 4 fields: first name, last name, gender, date of birth.
+#### Admin Page
 
 ## External Interface Requirements
 
-### Hardware Interfaces
+### `Hardware Interfaces`
 
-### Device support
+#### Device support
 
-- iOS and Android smartphones.
-- Windows, Linux, MacOS computer.
+- iOS and Android smartphones
+- Windows, Linux, MacOS computer
 
-### Software Interfaces
+#### Browser Support
 
-- Google OAuth 2.0 API
-
-### Browsers support
-
-- Google Chrome
+- Chrome
 - Mozilla Firefox
 - Microsoft Edge
 - Opera
 
+#### Software Interfaces
+
+- Google OAuth 2.0 API
+
 ## Other Nonfunctional Requirements
 
-### Software Quality Attributes
+### `Software Quality Attributes`
 
-- MVC code base.
+- MVC code base
 - REST code base.
 - Dependency Injection code base.
 - Unit tests for Authentication and User APIs.
