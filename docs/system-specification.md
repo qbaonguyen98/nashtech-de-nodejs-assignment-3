@@ -389,7 +389,7 @@ Description: Add service to garage
   ```
   {
     "data": updatedService,
-    "message": "Services are added successfull"
+    "message": "Services are added successful"
   } 
   ```
 - **Error Response**:
@@ -433,7 +433,7 @@ Description: Update garage information
   ```
   {
     "data": updatedService,
-    "message": "Garage is updated successfull"
+    "message": "Garage is updated successful"
   } 
   ```
 - **Error Response**:
@@ -491,7 +491,7 @@ Description: Delete service of garage
   ```json
   {
     "data": "${updatedService}",
-    "message": "Services are deleted successfull"
+    "message": "Services are deleted successful"
   } 
   ```
 - **Error Response**:
@@ -619,7 +619,7 @@ Description: Create a new service in system
 
 #### Update service
 
-Description: Update a service in system. After  accessed to the system, adminstrator can update information of existed service in the system. 
+Description: Update a service in system. After  accessed to the system, administrator can update information of existed service in the system. 
 
 - **URL**: /services/:serviceId
 - **Method**: PUT
@@ -630,7 +630,7 @@ Description: Update a service in system. After  accessed to the system, adminstr
   { "Cookie" : "Authorization=tokenString" }
   ```
 
-  Adminstrator authorization is required.
+  Administrator authorization is required.
 
 - **Request Body**:
 
@@ -645,7 +645,7 @@ Description: Update a service in system. After  accessed to the system, adminstr
 
 - **Success Response**:
 
-After the service updated successfull, the update service api will return status code 200 and response  includes the updated service and an message to notify to user.
+After the service updated successful, the update service api will return status code 200 and response  includes the updated service and an message to notify to user.
 
   - Code: 200
   - Content:
@@ -653,7 +653,7 @@ After the service updated successfull, the update service api will return status
   ```
   {
     "data": {Updated service},
-    "message": "Service is updated successfull"
+    "message": "Service is updated successful"
   } 
   ```
 
@@ -670,7 +670,7 @@ After the service updated successfull, the update service api will return status
 
 #### Delete service
 
-Description: Delete a service in system by adminstrator authorization. After accessed to the system, adminstrator can remove an existed service from the system.
+Description: Delete a service in system by administrator authorization. After accessed to the system, administrator can remove an existed service from the system.
 
 - **URL**: /services/:serviceId
 - **Method**: DELETE
@@ -685,7 +685,7 @@ Description: Delete a service in system by adminstrator authorization. After acc
 
 - **Success Response**:
 
-When the service is deleted successfull from the system, delete service api will return an response include code status 200 and message to notify to user.
+When the service is deleted successful from the system, delete service api will return an response include code status 200 and message to notify to user.
 
   - Code: 200
   - Content:
@@ -693,7 +693,7 @@ When the service is deleted successfull from the system, delete service api will
   ```
   {
     "data": "",
-    "message": "Service is deleted successfull"
+    "message": "Service is deleted successful"
   } 
   ```
 
