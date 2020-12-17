@@ -2,10 +2,10 @@
 
 ## Allowed HTTP requests
 
-**PUT**: To create resource.
-**POST**: Update resource.
-**GET**: Get a resource or a list of resources.
-**DELETE**: To delete resource.
+- **PUT**: To create resource.
+- **POST**: Update resource.
+- **GET**: Get a resource or a list of resources.
+- **DELETE**: To delete resource.
 
 ## Description of usual HTTP responses
 
@@ -140,9 +140,9 @@ Description: Used to collect a Token for a registered User.
 - Code: 400
 - Content: Bad request
 
-#### Login by google account
+#### Login by Google account
 
-Description: User can login with their google account.
+Description: User can login with their Google account.
 
 - **URL**: /auth/login/social
 - **Method**: POST

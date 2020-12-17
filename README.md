@@ -2,12 +2,15 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[Garage Booking](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3) is a full-stack TypeScript web application, which provides a robust MongoDB, Node.js, Express, and Angular based applications.
+[Garage Booking](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3) is a web application written in TypeScript, which provides a robust MongoDB, Node.js, Express, and Angular based applications.
 
-## Requirements
+## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/) 14.15.2 (LTS) which includes [Node Package Manager](https://www.npmjs.com/get-npm).
 - [MongoDB](https://www.mongodb.com/download-center/community).
+- [Git v2.0.0](https://git-scm.com/)
+- [Python 3.7](https://www.python.org/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 ## Installation
 
@@ -33,9 +36,9 @@ npm run dev
 
 The documentation is divided into several sections:
 
-- [Product Specification](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/product-specifications.md)
-- [System Requirement Specification](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/system-specification.md)
-- [Deployment]()
+- [Product Specification](./docs/docs/product-specifications.md)
+- [System Requirement Specification](./system-specification.md)
+- [Deployment](./deployment-document.md)
 
 ## Feature Changelog
 
@@ -47,13 +50,28 @@ The documentation is divided into several sections:
 
 We are grateful to the community for contributing bugfixes and improvements. Read below to learn about our submission process, coding rules and more.
 
-### [Code of Conduct](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/code-of-conduct.md)
+### [Code of Conduct](./docs/code-of-conduct.md)
 
-Garage Booking has adopted Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/code-of-conduct.md) so that you can understand what actions will and will not be tolerated.
+Garage Booking has adopted Code of Conduct that we expect project participants to adhere to. Please read [the full text](./docs/code-of-conduct.md) so that you can understand what actions will and will not be tolerated.
 
-### [Contributing Guide](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/contributing-guide.md)
+### [Contributing Guide](./docs/contributing-guide.md)
 
-Read our [contributing guide](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/contributing-guide.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+Read our [contributing guide](./docs/contributing-guide.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+
+## Technical project stakeholders
+
+This section provides a list of all known `stakeholders` with an interest in the project.s
+
+| Name                  | Email                                  | Role        |
+| --------------------- | -------------------------------------- | ----------- |
+| Phuoc Nguyen Van      | phuoc.vantran@nashtechglobal.com       | `Mentor`    |
+| Lam Chung Hoang       | lam.chunghoang@nashtechglobal.com      | `Mentor`    |
+| Tai Nguyen The        | tai.nguyenthe@nashtechglobal.com       | `Mentor`    |
+| Nhi Nguyen Huynh Thao | nhi.nguyenhuynhthao@nashtechglobal.com | `Tech Lead` |
+| Bao Nguyen Quoc       | bao.nguyenquoc2@nashtechglobal.com     | `Team Lead` |
+| Huy Nguyen Minh       | huy.nguyenminh2@nashtechglobal.com     | Developer   |
+| Hiep Nguyen Van       | hiep.nguyenvan@nashtechglobal.com      | Developer   |
+| Toan Nguyen Nhut      | toan.nguyennhut@nashtechglobal.com     | Developer   |
 
 ## Authors
 

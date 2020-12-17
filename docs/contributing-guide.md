@@ -2,7 +2,7 @@
 
 ## Code of Conduct
 
-Read our [contributing guide](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/contributing-guide.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+Read our [contributing guide](./contributing-guide.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
 
 ## Branch Organization
 
@@ -20,4 +20,4 @@ We use an automatic code formatter called [Prettier](https://prettier.io/). Run 
 
 [ESLint](https://eslint.org/) linter will catch most issues that may exist in your code. You can check the status of your code styling by simply running `npm run lint:fix`.
 
-Read through our [TypeScript coding convention](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/ts-convention.md) before making any changes.
+Read through our [TypeScript coding convention](./ts-convention.md) before making any changes.
