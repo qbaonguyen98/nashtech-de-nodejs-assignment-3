@@ -25,12 +25,12 @@ The Auth APIs enables you to manage all aspects of user identity. If offers endp
 
 #### Register account
 
-Introduction: The Register API lets user create an account, and then send an email to verify that account.
+Description: The Register API lets user create an account, and then send an email to verify that account.
 
-**URL**: /auth/register/internal
-**Method**: POST
-**URL Params**: None
-**Request Body**:
+- **URL**: /auth/register/internal
+- **Method**: POST
+- **URL Params**:: None
+  **Request Body**:
 
 ```json
 {
@@ -67,12 +67,12 @@ Introduction: The Register API lets user create an account, and then send an ema
 
 #### Verify account
 
-Introduction: Verify that account is valid.
+Description: Verify that account is valid.
 
-**URL**: /auth/verify-account
-**Method**: POST
-**URL Params**: None
-**Request Headers**:
+- **URL**: /auth/verify-account
+- **Method**: POST
+- **URL Params**:: None
+- **Request Headers**:
 
 ```json
 {
@@ -109,11 +109,12 @@ OR
 
 #### Login by internal account
 
-Introduction: Used to collect a Token for a registered User.
-**URL**: /login/internal
-**Method**: POST
-**Auth required**: NO
-**Request Body**:
+Description: Used to collect a Token for a registered User.
+
+- **URL**: /login/internal
+- **Method**: POST
+  **Auth required**: NO
+  **Request Body**:
 
 ```json
 {
@@ -141,11 +142,12 @@ Introduction: Used to collect a Token for a registered User.
 
 #### Login by google account
 
-Introduction: User can login with their google account.
-**URL**: /auth/login/social
-**Method**: POST
-**URL Params**: None
-**Request Body**:
+Description: User can login with their google account.
+
+- **URL**: /auth/login/social
+- **Method**: POST
+- **URL Params**:: None
+  **Request Body**:
 
 ```json
 { "idToken": "tokenString" }
@@ -185,11 +187,12 @@ This endpoints require a valid Token to be included in the cookies of the reques
 
 #### Get all users
 
-Introduction: Get users in system and return a list of users.
-**URL**: /users
-**Method**: GET
-**URL Params**: None
-**Request Headers**:
+Description: Get users in system and return a list of users.
+
+- **URL**: /users
+- **Method**: GET
+- **URL Params**:: None
+- **Request Headers**:
 
 ```json
 { "Cookie": "Authorization=tokenString" }
@@ -218,12 +221,13 @@ Introduction: Get users in system and return a list of users.
 
 #### Get user by id
 
-Introduction: Get the details of authenticated user's information by id.
-**URL**: /users/:username
-**Method**: POST
-**Auth required**: YES
-**URL Params**: username
-**Request Headers**:
+Description: Get the details of authenticated user's information by id.
+
+- **URL**: /users/:username
+- **Method**: POST
+  **Auth required**: YES
+- **URL Params**:: username
+- **Request Headers**:
 
 ```json
 { "Cookie": "Authorization=tokenString" }
@@ -259,11 +263,12 @@ Introduction: Get the details of authenticated user's information by id.
 
 #### Update user by admin
 
-Introduction:
-**URL**: /users/:username
-**Method**: PUT
-**URL Params**: username
-**Request Headers**:
+Description:
+
+- **URL**: /users/:username
+- **Method**: PUT
+- **URL Params**:: username
+- **Request Headers**:
 
 ```json
 { "Cookie": "Authorization=tokenString" }
@@ -306,12 +311,13 @@ Introduction:
 
 #### Update user profile
 
-Introduction: Allow the Authenticated User to update their details.
-**URL**: /users/profile/:username
-**Method**: PUT
-**Auth required**: YES
-**URL Params**: username
-**Request Headers**:
+Description: Allow the Authenticated User to update their details.
+
+- **URL**: /users/profile/:username
+- **Method**: PUT
+  **Auth required**: YES
+- **URL Params**:: username
+- **Request Headers**:
 
 ```json
 { "Cookie": "Authorization=tokenString" }
@@ -357,11 +363,12 @@ This endpoints require a valid Token to be included in the cookies of the reques
 
 #### List all garages
 
-Introduction: Get garages in system and return a list of garages.
-**URL**: /garages
-**Method**: GET
-**URL Params**: None
-**Request Headers**:
+Description: Get garages in system and return a list of garages.
+
+- **URL**: /garages
+- **Method**: GET
+- **URL Params**:: None
+- **Request Headers**:
 
 ```json
 { "Cookie": "Authorization=tokenString" }
@@ -407,11 +414,12 @@ Introduction: Get garages in system and return a list of garages.
 
 #### Create garage
 
-Introduction: Create a new garage in system
-**URL**: /garages
-**Method**: POST
-**URL Params**: None
-**Request Headers**:
+Description: Create a new garage in system
+
+- **URL**: /garages
+- **Method**: POST
+- **URL Params**:: None
+- **Request Headers**:
 
 ```json
 { "Cookie": "Authorization=tokenString" }
@@ -421,18 +429,18 @@ Introduction: Create a new garage in system
 
 ```json
 {
-      "code": "code of garage",
-      "name": "name",
-      "description": "description",
-      "address":"address",
-      "location":
-{
-          "coordinates": {
-            "lat": ,
-            "lng
-          }
-        }
+  "code": "code of garage",
+  "name": "name",
+  "description": "description",
+  "address":"address",
+  "location":
+  {
+    "coordinates": {
+      "lat": ,
+      "lng
     }
+  }
+}
 ```
 
 **Success Response**:
@@ -468,13 +476,200 @@ This endpoints require a valid Token to be included in the cookies of the reques
 
 #### List all services
 
-#### List service by id
+Description: Get services in system and return a list of services.
+
+- **URL**: /services
+- **Method**: GET
+- **URL Params**: None
+- **Request Headers**:
+
+```json
+{ "Cookie": "Authorization=tokenString" }
+```
+
+- **Request Body**:
+
+```json
+{
+  "filter": {
+    "code": 1234,
+    "name": "service-name",
+    "description": "",
+    "createdBy": "ObjectId"
+  },
+  "sortOrder": "asc",
+  "sortField": "_id",
+  "lastId": "lastIdString",
+  "limit": 10
+}
+```
+
+- **Success Response**:- Code: 200- Content:
+
+```json
+{
+  "data": "Array of services",
+  "message": "Services response"
+}
+```
+
+- **Error Response**:- Code: 401- Content:
+
+```json
+{ "message": "Wrong authentication token" }
+```
 
 #### Create service
 
+Introduction: Create a new service in system
+
+- **URL**: /services
+- **Method**: POST
+- **URL Params**: None
+- **Request Headers**:
+
+```json
+{ "Cookie": "Authorization=tokenString" }
+```
+
+- **Request Body**:
+
+```json
+{
+  "code": "Code of service",
+  "name": "name",
+  "description": "description",
+  "price": "500"
+}
+```
+
+- **Success Response**:- Code: 200- Content:
+
+```json
+{
+  "data": "Created new service",
+  "message": "Get user list"
+}
+```
+
+- **Error Response**:
+- Error 400
+
+  - Code: 400
+  - Content:
+
+```json
+{ "message": "Missing service information" }
+```
+
+- Error 401
+
+  - Code: 401
+  - Content:
+
+```json
+{ "message": "Wrong authentication token" }
+```
+
+- Error 409
+
+  - Code: 409
+  - Content:
+
+```json
+{ "message": "Service already exists" }
+```
+
 #### Update service
 
+Introduction: Update a service in system. After accessed to the system, administrator can update information of existed service in the system.
+
+- **URL**: /services/:serviceId
+- **Method**: PUT
+- **URL Params**: serviceId
+- **Request Headers**:
+
+```json
+{ "Cookie": "Authorization=tokenString" }
+```
+
+> Administrator authorization is required.
+
+- **Request Body**:
+
+```json
+{
+  "name": "name",
+  "description": "description",
+  "price": "500",
+  "isDeleted": true
+}
+```
+
+- **Success Response**:
+
+After the service updated successful, the update service api will return status code 200 and response includes the updated service and an message to notify to user.
+
+- Code: 200
+- Content:
+
+```json
+{
+  "data": {Updated service},
+  "message": "Service is updated successful"
+}
+```
+
+**Error Response**:
+
+- Error 400
+- Code: 400
+- Content:
+
+```json
+{ "message": "Missing service information" }
+```
+
 #### Delete service
+
+Introduction: Delete a service in system by administrator authorization. After accessed to the system, administrator can remove an existed service from the system.
+
+- **URL**: /services/:serviceId
+- **Method**: DELETE
+- **URL Params**: serviceId
+- **Request Headers**:
+
+```json
+{ "Cookie": "Authorization=tokenString" }
+```
+
+- **Request Body**: NONE
+
+- **Success Response**:
+
+When the service is deleted successful from the system, delete service api will return an response include code status 200 and message to notify to user.
+
+- Code: 200
+- Content:
+
+```json
+{
+  "data": "",
+  "message": "Service is deleted successful"
+}
+```
+
+- **Error Response**:
+
+If errors occur in delete process, the api will return status code 500 and message to notify to user.
+
+- Error 500
+- Code: 500
+- Content:
+
+```json
+{ "message": "Delete service failed" }
+```
 
 ### Booking Management
 

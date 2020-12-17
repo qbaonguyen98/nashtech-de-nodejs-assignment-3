@@ -100,12 +100,32 @@ app
 
 ## Functional Specifications
 
+### Welcome page
+
+**Description**: The application include 2 buttons: login button and register button. These button link to login and register pages. The page also include logo and info about site.
+
+#### Functional requirements
+
+Navigate to Login page:
+
+- User clicks on login button.
+- The system redirects user to login page.
+
+Navigate to Register page:
+
+- User clicks on register button.
+- The system redirects user to register page.
+
+### Register page
+
+**Description**: The page include 2 buttons: login button and register button (these button link to login and register pages); 4 fields: username, email, password, confirm password; create account button
+Page also include logo and info about site
+
 ### Administrator use case
 
 **Use case:** Login to system with internal account.
 
-**Brief Description**
-The administrator logins by the supplied account to get authorization accesses to the Garage Services Booking Dashboard System with Admin role.
+**Description**: The administrator logins by the supplied account to get authorization accesses to the Garage Services Booking Dashboard System with Admin role.
 
 Initial Step-By-Step Description:
 
@@ -120,8 +140,7 @@ Initial Step-By-Step Description:
 
 **Use case:** Admin manages all registered users.
 
-**Brief Description**
-After logging in, admin can see a list of registered users.
+**Description**: After logging in, admin can see a list of registered users.
 
 Initial Step-By-Step Description:
 
@@ -132,8 +151,7 @@ Initial Step-By-Step Description:
 
 **Use case:** Register an internal account.
 
-**Brief Description**
-User registers an internal account.
+**Description**: User registers an internal account.
 
 Initial Step-By-Step Description:
 
@@ -149,8 +167,7 @@ Initial Step-By-Step Description:
 
 **Use case:** Login with an internal account.
 
-**Brief Description**
-User login with a registered internal account.
+**Description**: User login with a registered internal account.
 
 Initial Step-By-Step Description:
 
@@ -158,19 +175,18 @@ Initial Step-By-Step Description:
 2. User enter username and password.
 3. The system validates user inputs.
 4. User clicks on the Login button.
-5. The system redirect user to user page or admin page if login successfully. If not, the system displays error message.
+5. The system redirect user to user page or admin page if login successfuly. If not, the system displays error message.
 
 **Use case:** Login with a Google account.
 
-**Brief Description**
-User logins with a Google account.
+**Description**: User logins with a Google account.
 
 Initial Step-By-Step Description:
 
 1. User clicks on the Login button on the top right of the home page.
 2. User click on Login with google button.
 3. User enter Google account and password.
-4. The system redirect user to user page or admin page if login successfully. If not, the system displays error message.
+4. The system redirect user to user page or admin page if login successfuly. If not, the system displays error message.
 
 ## System Features
 
@@ -179,9 +195,41 @@ Initial Step-By-Step Description:
 - Register for an internal account and login
 - Login with google account
 
-### User
+### Admin
 
 - Admin can get all users with 3 fields: full name, email, last login.
+- Admin can edit user profile, lock or unlock user and delete user.
+
+### User
+
 - User can get their own detail information with 9 fields: first name, last name, gender, date of birth, username, email, account type, last login, is locked or not.
 - User can update their user profile with 4 fields: first name, last name, gender, date of birth.
-- Admin can edit user profile, lock or unlock user and delete user.
+
+## External Interface Requirements
+
+### Hardware Interfaces
+
+### Device support
+
+- iOS and Android smartphones.
+- Windows, Linux, MacOS computer.
+
+### Software Interfaces
+
+- Google OAuth 2.0 API
+
+### Browsers support
+
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Opera
+
+## Other Nonfunctional Requirements
+
+### Software Quality Attributes
+
+- MVC code base.
+- REST code base.
+- Dependency Injection code base.
+- Unit tests for Authentication and User APIs.

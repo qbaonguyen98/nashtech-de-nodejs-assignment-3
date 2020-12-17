@@ -83,7 +83,7 @@ var y = findByName(x); // got y: string;
 
 - Use `undefined` in general
 
-### General rule for `null` and `undefined`
+### General rules for `null` and `undefined`
 
 Don't use
 

@@ -33,8 +33,8 @@ npm run dev
 
 The documentation is divided into several sections:
 
-- [Product Specification]()
-- [System Requirement Specification]()
+- [Product Specification](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/product-specifications.md)
+- [System Requirement Specification](https://github.com/qbaonguyen98/nashtech-de-nodejs-assignment-3/blob/docs/docs/system-specification.md)
 - [Deployment]()
 
 ## Feature Changelog
