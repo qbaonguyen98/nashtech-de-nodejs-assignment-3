@@ -2,7 +2,7 @@
 
 ## Code of Conduct
 
-Read our [contributing guide](./contributing-guide.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+Read our [contributing guide](./contributing-guide.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Garage Booking.
 
 ## Branch Organization
 

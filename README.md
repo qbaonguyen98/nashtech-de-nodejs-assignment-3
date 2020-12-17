@@ -42,9 +42,7 @@ The documentation is divided into several sections:
 
 ## Feature Changelog
 
-### 0.0.1
-
-#### Added
+### 0.0.1 - Initial Release (Dec 17 2020)
 
 ## Contributing
 
