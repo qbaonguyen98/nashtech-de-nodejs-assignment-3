@@ -34,7 +34,7 @@ npm run dev
 
 ## Documentation
 
-The documentation is divided into several sections:
+The documentation is divided into several sections. The detailed usage guide and API documentation for the project can be found:
 
 - [Product Specification](./docs/product-specifications.md)
 - [System Requirement Specification](./docs/system-specification.md)
@@ -70,6 +70,32 @@ This section provides a list of all known `stakeholders` with an interest in the
 | Huy Nguyen Minh       | huy.nguyenminh2@nashtechglobal.com     | Developer   |
 | Hiep Nguyen Van       | hiep.nguyenvan@nashtechglobal.com      | Developer   |
 | Toan Nguyen Nhut      | toan.nguyennhut@nashtechglobal.com     | Developer   |
+
+## Technologies
+
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [class-transformer](https://www.npmjs.com/package/class-transformer)
+- [class-validator](https://www.npmjs.com/package/class-validator)
+- [compression](https://www.npmjs.com/package/compression)
+- [cookie-parser](https://www.npmjs.com/package/cookie-parser)
+- [cors](https://www.npmjs.com/package/cors)
+- [cross-env](https://www.npmjs.com/package/cross-env)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [envalid](https://www.npmjs.com/package/envalid)
+- [express](https://www.npmjs.com/package/express)
+- [helmet](https://www.npmjs.com/package/helmet)
+- [hpp](https://www.npmjs.com/package/hpp)
+- [inversify](https://www.npmjs.com/package/inversify)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [lodash](https://www.npmjs.com/package/lodash)
+- [mongoose](https://www.npmjs.com/package/mongoose)
+- [morgan](https://www.npmjs.com/package/morgan)
+- [nodemailer](https://www.npmjs.com/package/nodemailer)
+- [reflect-metadata](https://www.npmjs.com/package/reflect-metadata)
+- [swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc)
+- [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
+- [winston](https://www.npmjs.com/package/winston)
+- [winston-daily-rotate-file](https://www.npmjs.com/package/winston-daily-rotate-file)
 
 ## Authors
 
