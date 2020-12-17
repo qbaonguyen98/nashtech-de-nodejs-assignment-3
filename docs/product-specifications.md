@@ -116,7 +116,7 @@ Admin users are typically on a non-mobile device and control all the data of sys
 
 #### ERD
 
-![ERD](./a3-ERD.png)
+![ERD](./assets/a3-ERD.png)
 
 #### Implementation Constraints
 
