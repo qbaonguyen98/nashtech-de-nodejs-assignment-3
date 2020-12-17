@@ -40,6 +40,7 @@ Description: The Register API lets user create an account, and then send an emai
     ```
 
 - **Success Response**:
+When user register successfully, en email with a link to active their account will be send to their mail address. Response include a message to notify user.
   - Code: 201
   - Content:
   ```json
@@ -62,6 +63,7 @@ Description: The Register API lets user create an account, and then send an emai
   ```json
   { "message": "Username already exist. The email address you entered is already associated with another account."}
   ```
+
 #### Verify account
 Description: Verify that account is valid.
 
@@ -73,6 +75,7 @@ Description: Verify that account is valid.
   { "Cookie" : "Authorization=tokenString" }
   ```
 - **Success Response**:
+If user's token is valid.  
   - Code: 200
   - Content: 
   ```json
@@ -93,6 +96,7 @@ Description: Verify that account is valid.
 
 #### Login by internal account
 Description: Used to collect a Token for a registered User.
+
 - **URL**: /login/internal
 - **Method**: POST
 - **Auth required**: NO
@@ -104,6 +108,7 @@ Description: Used to collect a Token for a registered User.
     } 
     ```
 - **Success Response**:
+
   - Code: 200
   - Content: return an token in cookie
   ```json
@@ -147,7 +152,7 @@ Description: User can login with their google account.
 This endpoints require a valid Token to be included in the cookies of the request. A Token can be acquired from the Login.
 
 #### Get all users
-Description: Get users in system and return a list of users.
+Description: Get users in system and return a list of users. 
 
 - **URL**: /users
 - **Method**: GET
@@ -310,9 +315,27 @@ Description: Get garages in system and return a list of garages.
 - **Success Response**:
   - Code: 200
   - Content: 
-  ```
+
+  ```json
   {
-    "data": Array of Garages
+    "data": // Array of Garages 
+      [
+        {
+          "code": 1234,
+          "name": "string",
+          "description?": "string",
+          "address": "string",
+          "location": {
+            "googleId": "string",
+            "coordinates": "Coordinates",
+          },
+          "createdBy": "string",
+          "createdDate?": "number",
+          "updatedBy?": "string",
+          "updatedDate?": "number",
+          "isDeleted?": "boolean",
+        }
+      ],
     "message": "Garages response"
   } 
   ```
@@ -354,9 +377,23 @@ Description: Create a new garage in system.
 - **Success Response**:
   - Code: 200
   - Content: 
-  ```
+  ```json
   {
-    "data": garageData,
+    "data": {
+          "code": 1234,
+          "name": "string",
+          "description?": "string",
+          "address": "string",
+          "location": {
+            "googleId": "string",
+            "coordinates": "Coordinates",
+          },
+          "createdBy": "string",
+          "createdDate?": "number",
+          "updatedBy?": "string",
+          "updatedDate?": "number",
+          "isDeleted?": "boolean",
+        },
     "message": "Create new garage"
   } 
   ```
@@ -386,9 +423,23 @@ Description: Add service to garage
 - **Success Response**:
   - Code: 200
   - Content: 
-  ```
+  ```json
   {
-    "data": updatedService,
+    "data": {
+          "code": 1234,
+          "name": "string",
+          "description?": "string",
+          "address": "string",
+          "location": {
+            "googleId": "string",
+            "coordinates": "Coordinates",
+          },
+          "createdBy": "string",
+          "createdDate?": "number",
+          "updatedBy?": "string",
+          "updatedDate?": "number",
+          "isDeleted?": "boolean",
+        },
     "message": "Services are added successful"
   } 
   ```
@@ -414,8 +465,8 @@ Description: Update garage information
     { 
       "name": "name",
       "description": "description",
-      "address":"address", // optional
-      "location": // optional
+      "address":"address", 
+      "location": 
         {
           "coordinates": 
           {
@@ -424,15 +475,29 @@ Description: Update garage information
           },
           "googleId": "string"
         },
-      "isDeleted": false // optional
+      "isDeleted": false 
     } 
     ```
 - **Success Response**:
   - Code: 200
   - Content: 
-  ```
+  ```json
   {
-    "data": updatedService,
+    "data": {
+          "code": 1234,
+          "name": "string",
+          "description?": "string",
+          "address": "string",
+          "location": {
+            "googleId": "string",
+            "coordinates": "Coordinates",
+          },
+          "createdBy": "string",
+          "createdDate?": "number",
+          "updatedBy?": "string",
+          "updatedDate?": "number",
+          "isDeleted?": "boolean",
+        },
     "message": "Garage is updated successful"
   } 
   ```
@@ -490,7 +555,21 @@ Description: Delete service of garage
   - Content: 
   ```json
   {
-    "data": "${updatedService}",
+    "data": {
+          "code": 1234,
+          "name": "string",
+          "description?": "string",
+          "address": "string",
+          "location": {
+            "googleId": "string",
+            "coordinates": "Coordinates",
+          },
+          "createdBy": "string",
+          "createdDate?": "number",
+          "updatedBy?": "string",
+          "updatedDate?": "number",
+          "isDeleted?": "boolean",
+        },
     "message": "Services are deleted successful"
   } 
   ```
@@ -538,9 +617,23 @@ Description: Get services in system and return a list of services.
   - Code: 200
   - Content:
 
-  ```
+  ```json
   {
-    "data": "Array of services",
+    "data": // Array of services
+    [
+      {
+        "code": 1234,
+        "name": "string",
+        "description": "string",
+        "image?": "string",
+        "price": 1234,
+        "createdBy": "string",
+        "createdDate": 123456789,
+        "updatedBy": "string",
+        "updatedDate": "number",
+        "isDeleted": false,
+      }
+    ],
     "message": "Services response"
   } 
   ```
@@ -581,9 +674,20 @@ Description: Create a new service in system
   - Code: 200
   - Content:
   
-  ```
+  ```json
   {
-    "data": "Created new service",
+    "data": {
+        "code": 1234,
+        "name": "string",
+        "description": "string",
+        "image?": "string",
+        "price": 1234,
+        "createdBy": "string",
+        "createdDate": 123456789,
+        "updatedBy": "string",
+        "updatedDate": "number",
+        "isDeleted": false,
+      },
     "message": "Get user list"
   } 
   ```
@@ -670,7 +774,7 @@ After the service updated successful, the update service api will return status 
 
 #### Delete service
 
-Description: Delete a service in system by administrator authorization. After accessed to the system, administrator can remove an existed service from the system.
+Description: Delete a service in system by i authorization. After accessed to the system, administrator can remove an existed service from the system.
 
 - **URL**: /services/:serviceId
 - **Method**: DELETE
