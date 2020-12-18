@@ -22,6 +22,12 @@ const TYPES = {
   BookingController: Symbol.for('BookingController'),
   BookingService: Symbol.for('BookingService'),
   BookingRepository: Symbol.for('BookingRepository'),
+
+  // UserProfile
+  UserProfileRepository: Symbol.for('UserProfileRepository'),
+
+  // Role
+  RoleRepository: Symbol.for('RoleRepository'),
 };
 
 export default TYPES;
